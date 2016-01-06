@@ -107,7 +107,6 @@
 		781D8CEB1C19707B00835FEC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781D8CEA1C19707B00835FEC /* CoreTelephony.framework */; };
 		782914301C155F0D00F6BBF9 /* SvUDIDTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7829142F1C155F0D00F6BBF9 /* SvUDIDTools.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		782914321C155FAD00F6BBF9 /* KeychainAccessGroups.plist in Resources */ = {isa = PBXBuildFile; fileRef = 782914311C155FAD00F6BBF9 /* KeychainAccessGroups.plist */; };
-		7878CE161C3BDBD600375BFB /* libRTMsgClientIos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7878CE151C3BDBD600375BFB /* libRTMsgClientIos.a */; };
 		78D440361C33BD0700738C86 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78D440351C33BD0700738C86 /* Accelerate.framework */; };
 		78F154251C33CAB00034E8C9 /* no_net_alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F154231C33CAB00034E8C9 /* no_net_alert@2x.png */; };
 		78F154261C33CAB00034E8C9 /* no_net_alert@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F154241C33CAB00034E8C9 /* no_net_alert@3x.png */; };
@@ -154,6 +153,8 @@
 		FC3C69EB1C23994500053A75 /* NtreatedData.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3C69EA1C23994500053A75 /* NtreatedData.m */; };
 		FC3C69EE1C239A9500053A75 /* NtreatedDataManage.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3C69ED1C239A9500053A75 /* NtreatedDataManage.m */; };
 		FC592AF51C2928D20055EDCC /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC592AF11C2928D20055EDCC /* libWeChatSDK.a */; };
+		FC9B3D741C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B3D711C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a */; };
+		FC9B3D751C3CEB8700C86F89 /* TMMessageManage.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9B3D731C3CEB8700C86F89 /* TMMessageManage.m */; };
 		FCB6026D1C2BC6FA00469FA2 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB602601C2BC6FA00469FA2 /* WXApiManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FCB6026E1C2BC6FA00469FA2 /* WXApiRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB602621C2BC6FA00469FA2 /* WXApiRequestHandler.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FCB6026F1C2BC6FA00469FA2 /* WXApiResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB602641C2BC6FA00469FA2 /* WXApiResponseHandler.m */; };
@@ -338,7 +339,6 @@
 		7829142E1C155F0D00F6BBF9 /* SvUDIDTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SvUDIDTools.h; sourceTree = "<group>"; };
 		7829142F1C155F0D00F6BBF9 /* SvUDIDTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SvUDIDTools.m; sourceTree = "<group>"; };
 		782914311C155FAD00F6BBF9 /* KeychainAccessGroups.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = KeychainAccessGroups.plist; path = ../KeychainAccessGroups.plist; sourceTree = "<group>"; };
-		7878CE151C3BDBD600375BFB /* libRTMsgClientIos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libRTMsgClientIos.a; sourceTree = "<group>"; };
 		78D440351C33BD0700738C86 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		78F154231C33CAB00034E8C9 /* no_net_alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_net_alert@2x.png"; sourceTree = "<group>"; };
 		78F154241C33CAB00034E8C9 /* no_net_alert@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_net_alert@3x.png"; sourceTree = "<group>"; };
@@ -399,6 +399,12 @@
 		FC592AF21C2928D20055EDCC /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		FC592AF31C2928D20055EDCC /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		FC592AF41C2928D20055EDCC /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		FC9B3D6E1C3CEB8700C86F89 /* MsgClientProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgClientProtocol.h; sourceTree = "<group>"; };
+		FC9B3D6F1C3CEB8700C86F89 /* TMClientType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMClientType.h; sourceTree = "<group>"; };
+		FC9B3D701C3CEB8700C86F89 /* TMMsgSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMsgSender.h; sourceTree = "<group>"; };
+		FC9B3D711C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "librtcmsgclient-tm-ios.a"; sourceTree = "<group>"; };
+		FC9B3D721C3CEB8700C86F89 /* TMMessageManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMessageManage.h; sourceTree = "<group>"; };
+		FC9B3D731C3CEB8700C86F89 /* TMMessageManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMessageManage.m; sourceTree = "<group>"; };
 		FCB6025F1C2BC6FA00469FA2 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
 		FCB602601C2BC6FA00469FA2 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		FCB602611C2BC6FA00469FA2 /* WXApiRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiRequestHandler.h; sourceTree = "<group>"; };
@@ -437,7 +443,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7878CE161C3BDBD600375BFB /* libRTMsgClientIos.a in Frameworks */,
 				78D440361C33BD0700738C86 /* Accelerate.framework in Frameworks */,
 				FC1597E41C293550009F8FB4 /* libsqlite3.0.tbd in Frameworks */,
 				FC1597E21C293525009F8FB4 /* SystemConfiguration.framework in Frameworks */,
@@ -445,6 +450,7 @@
 				7802508B1C0E9E5800435DC7 /* VideoToolbox.framework in Frameworks */,
 				780250891C0E9E4E00435DC7 /* GLKit.framework in Frameworks */,
 				780250871C0E9E2C00435DC7 /* libz.tbd in Frameworks */,
+				FC9B3D741C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a in Frameworks */,
 				FC592AF51C2928D20055EDCC /* libWeChatSDK.a in Frameworks */,
 				780250851C0E9E2500435DC7 /* libstdc++.tbd in Frameworks */,
 				780250831C0E9E1E00435DC7 /* libstdc++.6.0.9.tbd in Frameworks */,
@@ -1028,10 +1034,23 @@
 			path = WeChat;
 			sourceTree = "<group>";
 		};
+		FC9B3D6D1C3CEB8700C86F89 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				FC9B3D6E1C3CEB8700C86F89 /* MsgClientProtocol.h */,
+				FC9B3D6F1C3CEB8700C86F89 /* TMClientType.h */,
+				FC9B3D701C3CEB8700C86F89 /* TMMsgSender.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		FCB6025B1C2B822E00469FA2 /* RtcMesg */ = {
 			isa = PBXGroup;
 			children = (
-				7878CE151C3BDBD600375BFB /* libRTMsgClientIos.a */,
+				FC9B3D6D1C3CEB8700C86F89 /* include */,
+				FC9B3D711C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a */,
+				FC9B3D721C3CEB8700C86F89 /* TMMessageManage.h */,
+				FC9B3D731C3CEB8700C86F89 /* TMMessageManage.m */,
 			);
 			path = RtcMesg;
 			sourceTree = "<group>";
@@ -1425,6 +1444,7 @@
 				78FC362D1C100A43001BEDD7 /* NSDate+Utils.m in Sources */,
 				782914301C155F0D00F6BBF9 /* SvUDIDTools.m in Sources */,
 				78024FE31C0E98A200435DC7 /* ToolUtils.m in Sources */,
+				FC9B3D751C3CEB8700C86F89 /* TMMessageManage.m in Sources */,
 				780250631C0E998F00435DC7 /* UUProgressHUD.m in Sources */,
 				780250DC1C0EA8A200435DC7 /* AvcAudioRouteMgr.m in Sources */,
 				78024FDF1C0E98A200435DC7 /* GTMBase64.m in Sources */,
