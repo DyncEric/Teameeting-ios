@@ -16,6 +16,8 @@
 
 - (void)openOrCloseNotification:(BOOL)isOpen;
 
+- (void)privateMeeting:(BOOL)isPrivate;
+
 @end
 
 @interface SelectedItemCell : UIView<UIAlertViewDelegate>
@@ -30,15 +32,19 @@
     
     BOOL tryOpen;
 }
+@property (nonatomic, assign) BOOL isViewEnable;
 
 @property (nonatomic, weak)id<SelectedItemCellDelegate>delegate;
 
 - (id)initWithFrame:(CGRect)frame
           withTitle:(NSString*)title
       withImageName:(NSString*)imageName
+    withEnableImage:(NSString*)enableImageName
            withType:(PushViewType)type
           withIndex:(NSInteger)index
            withItem:(RoomItem*)item;
+
+- (void)setViewEnable:(BOOL)isEnable;
 
 @end
 
@@ -53,6 +59,7 @@
 - (id)initWithFrame:(CGRect)frame
           withTitle:(NSString*)title
       withImageName:(NSString*)imageName
+    withEnableImage:(NSString*)enableImageName
            withType:(PushViewType)type
           withIndex:(NSInteger)index
            withItem:(RoomItem *)item {
@@ -62,7 +69,7 @@
     if (self) {
     
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
-        
+        self.isViewEnable = YES;
         indexPath = index;
         viewType = type;
         iconImageView = [UIImageView new];
@@ -83,12 +90,12 @@
         
         [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickSelectedItemCell:)]];
         
-        if (type == PushViewTypeSetting && index == 4) {
+        if ((type == PushViewTypeSetting||type == PushViewTypeSettingConferee) && index == 4) {
             tryOpen = NO;
 
             switchView = [UISwitch new];
             switchView.onTintColor = [UIColor colorWithRed:235.0/255.0 green:139.0/255.0 blue:75.0/255.0 alpha:1.0];
-            
+            switchView.tag = index;
             [switchView addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
             [self addSubview:switchView];
             
@@ -109,6 +116,17 @@
                 switchView.on = NO;
             }
           
+        }else if (type == PushViewTypeSetting && index == 7){
+            switchView = [UISwitch new];
+            switchView.onTintColor = [UIColor colorWithRed:235.0/255.0 green:139.0/255.0 blue:75.0/255.0 alpha:1.0];
+            switchView.tag = index;
+            [switchView addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+            [self addSubview:switchView];
+            if (item.mettingState ==2) {
+                switchView.on = YES;
+            }else{
+                switchView.on = NO;
+            }
         }
         [self layout];
         
@@ -170,24 +188,37 @@
         NSLayoutConstraint * constraint11 = [NSLayoutConstraint constraintWithItem:switchView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0f constant:-20.0f];
         
         NSLayoutConstraint * constraint12 = [NSLayoutConstraint constraintWithItem:switchView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0];
-        
-        // 关闭选择
-        NSLayoutConstraint * constraint13 = [NSLayoutConstraint constraintWithItem:notificationLineImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:iconImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
-        
-        NSLayoutConstraint * constraint14 = [NSLayoutConstraint constraintWithItem:notificationLineImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:iconImageView attribute:NSLayoutAttributeHeight multiplier:1.0f constant:0.0f];
-        
-        NSLayoutConstraint * constraint15 = [NSLayoutConstraint constraintWithItem:notificationLineImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:iconImageView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f];
-        
-        NSLayoutConstraint * constraint16 = [NSLayoutConstraint constraintWithItem:notificationLineImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:iconImageView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
         [self addConstraint:constraint11];
         [self addConstraint:constraint12];
         
-        [self addConstraint:constraint13];
-        [self addConstraint:constraint14];
-        [self addConstraint:constraint15];
-        [self addConstraint:constraint16];
+        if (switchView.tag ==4 ) {
+            // 关闭选择
+            NSLayoutConstraint * constraint13 = [NSLayoutConstraint constraintWithItem:notificationLineImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:iconImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
+            
+            NSLayoutConstraint * constraint14 = [NSLayoutConstraint constraintWithItem:notificationLineImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:iconImageView attribute:NSLayoutAttributeHeight multiplier:1.0f constant:0.0f];
+            
+            NSLayoutConstraint * constraint15 = [NSLayoutConstraint constraintWithItem:notificationLineImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:iconImageView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f];
+            
+            NSLayoutConstraint * constraint16 = [NSLayoutConstraint constraintWithItem:notificationLineImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:iconImageView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
+            [self addConstraint:constraint13];
+            [self addConstraint:constraint14];
+            [self addConstraint:constraint15];
+            [self addConstraint:constraint16];
+        }
+      
     }
    
+}
+// 设置是否可用
+- (void)setViewEnable:(BOOL)isEnable
+{
+    if (isEnable) {// 可用
+         self.isViewEnable = YES;
+        titleLabel.textColor = [UIColor whiteColor];
+    }else{// 不可用
+         self.isViewEnable = NO;
+         titleLabel.textColor = [UIColor grayColor];
+    }
 }
 
 - (void)notificationShow:(BOOL)isShow
@@ -210,6 +241,9 @@
 // 点击cell
 - (void)onClickSelectedItemCell:(UITapGestureRecognizer*)tapGestureRecognizer
 {
+    if (!self.isViewEnable) {
+        return;
+    }
     if (viewType == PushViewTypeSetting && indexPath == 4) {
         if (switchView) {
             if (switchView.isOn) {
@@ -218,6 +252,21 @@
             }else{
                 // 先判断能否打开在打开否则回去
                 [self getNOtificationAuthority];
+            }
+        }
+    }else if (viewType == PushViewTypeSetting && indexPath ==7){
+        // 打开私密
+        if (switchView) {
+            if (switchView.isOn) {
+                 [switchView setOn:NO animated:YES];
+                if (delegate && [delegate respondsToSelector:@selector(privateMeeting:)]) {
+                    [delegate privateMeeting:NO];
+                }
+            }else{
+                [switchView setOn:YES animated:YES];
+                UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"打开私密会议，您将不能在分享该会议给好友" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                alerView.tag = 491;
+                [alerView show];
             }
         }
     }else{
@@ -229,16 +278,32 @@
 //
 - (void)switchAction:(UISwitch*)view
 {
-    // 打开
-    if (view.isOn) {
-        // 先判断能否打开在打开否则回去
-        [self getNOtificationAuthority];
-    }else{// 关闭
-        [self notificationShow:NO];
-        if (delegate && [delegate respondsToSelector:@selector(openOrCloseNotification:)]) {
-            [delegate openOrCloseNotification:NO];
+    int tag = (int)view.tag;
+    if (tag == 4) {
+        // 打开
+        if (view.isOn) {
+            // 先判断能否打开在打开否则回去
+            [self getNOtificationAuthority];
+        }else{// 关闭
+            [self notificationShow:NO];
+            if (delegate && [delegate respondsToSelector:@selector(openOrCloseNotification:)]) {
+                [delegate openOrCloseNotification:NO];
+            }
+        }
+    }else{
+        // 打开私密
+        if (view.isOn) {
+            UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"打开私密会议，您将不能在分享该会议给好友" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alerView.tag = 491;
+            [alerView show];
+            
+        }else{// 关闭
+            if (delegate && [delegate respondsToSelector:@selector(privateMeeting:)]) {
+                [delegate privateMeeting:NO];
+            }
         }
     }
+   
 }
 
 - (void)getNOtificationAuthority
@@ -258,6 +323,7 @@
         });
         
         UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"打开通知" message:@"去设置当中，把推送通知打开" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去设置", nil];
+        alerView.tag = 490;
         [alerView show];
     }
 }
@@ -276,15 +342,27 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        tryOpen = NO;
-    }else{
-        if ([[UIDevice currentDevice].systemVersion floatValue]>=8.0) {
-            NSURL *appSettings = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-            [[UIApplication sharedApplication] openURL:appSettings];
+    if (alertView.tag == 490) {
+        if (buttonIndex == 0) {
+            tryOpen = NO;
         }else{
-            NSURL*url=[NSURL URLWithString:@"app-settings:"];
-            [[UIApplication sharedApplication] openURL:url];
+            if ([[UIDevice currentDevice].systemVersion floatValue]>=8.0) {
+                NSURL *appSettings = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                [[UIApplication sharedApplication] openURL:appSettings];
+            }else{
+                NSURL*url=[NSURL URLWithString:@"app-settings:"];
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }
+
+    }else if (alertView.tag == 491){
+        if (buttonIndex == 1) {
+            if (delegate && [delegate respondsToSelector:@selector(privateMeeting:)]) {
+                [delegate privateMeeting:YES];
+            }
+            
+        }else{
+            switchView.on = NO;
         }
     }
 }
@@ -293,7 +371,11 @@
 
 
 @interface PushView ()<UIScrollViewDelegate,SelectedItemCellDelegate>
-
+{
+    SelectedItemCell *messageInviteView;
+    SelectedItemCell *weixinInviteView;
+    SelectedItemCell *copyInviteView;
+}
 @property (nonatomic, strong) UIScrollView *mainScrllView;
 @property (nonatomic) PushViewType lastPushViewType;
 @property (nonatomic, strong) UIButton *upButton;
@@ -451,15 +533,15 @@
     
     if (type == PushViewTypeDefault) {
         //CGRectMake(CGRectGetMinX(lineImageView.frame), startY,CGRectGetWidth(lineImageView.frame), CellHeight)
-        SelectedItemCell *inviteMessage = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"短信邀请" withImageName:@"message_main" withType:PushViewTypeDefault withIndex:0 withItem:roomItem];
+        SelectedItemCell *inviteMessage = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"短信邀请" withImageName:@"message_main" withEnableImage:nil withType:PushViewTypeDefault withIndex:0 withItem:roomItem];
         inviteMessage.delegate = self;
         
         // CGRectMake(CGRectGetMinX(lineImageView.frame), CGRectGetMaxY(inviteMessage.frame), CGRectGetWidth(lineImageView.frame), CellHeight)
-         SelectedItemCell *inviteMail = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"微信邀请" withImageName:@"mail_main" withType:PushViewTypeDefault withIndex:1 withItem:roomItem];
+         SelectedItemCell *inviteMail = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"微信邀请" withImageName:@"mail_main" withEnableImage:nil withType:PushViewTypeDefault withIndex:1 withItem:roomItem];
         inviteMail.delegate = self;
         
         //CGRectMake(CGRectGetMinX(lineImageView.frame), CGRectGetMaxY(inviteMessage.frame), CGRectGetWidth(lineImageView.frame), CellHeight)
-         SelectedItemCell *inviteLink = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"拷贝链接" withImageName:@"link_main" withType:PushViewTypeDefault withIndex:2 withItem:roomItem];
+         SelectedItemCell *inviteLink = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"拷贝链接" withImageName:@"link_main" withEnableImage:nil withType:PushViewTypeDefault withIndex:2 withItem:roomItem];
         inviteLink.delegate = self;
         
         [self.mainScrllView addSubview:inviteMessage];
@@ -509,40 +591,45 @@
         [self.mainScrllView addConstraint:constraint10];
         [self.mainScrllView addConstraint:constraint11];
         
-    }else{
-        SelectedItemCell *joinRoom = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"进入会议" withImageName:@"enter_main" withType:PushViewTypeSetting withIndex:0 withItem:roomItem];
+    }else if(type == PushViewTypeSetting){
+        SelectedItemCell *joinRoom = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"进入会议" withImageName:@"enter_main" withEnableImage:nil withType:PushViewTypeSetting withIndex:0 withItem:roomItem];
         joinRoom.delegate = self;
         
-        SelectedItemCell *inviteMessage = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"短信邀请" withImageName:@"message_main" withType:PushViewTypeSetting withIndex:1 withItem:roomItem];
-        inviteMessage.delegate = self;
+        messageInviteView = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"短信邀请" withImageName:@"message_main" withEnableImage:nil withType:PushViewTypeSetting withIndex:1 withItem:roomItem];
+        messageInviteView.delegate = self;
         
-        SelectedItemCell *inviteMail = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"微信邀请" withImageName:@"weixin_main" withType:PushViewTypeSetting withIndex:2 withItem:roomItem];
-        inviteMail.delegate = self;
+        weixinInviteView = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"微信邀请" withImageName:@"weixin_main" withEnableImage:nil withType:PushViewTypeSetting withIndex:2 withItem:roomItem];
+        weixinInviteView.delegate = self;
         
-        SelectedItemCell *inviteLink = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"拷贝链接" withImageName:@"link_main" withType:PushViewTypeSetting withIndex:3 withItem:roomItem];
-        inviteLink.delegate = self;
-        // CGRectMake(CGRectGetMinX(lineImageView.frame), CGRectGetMaxY(inviteLink.frame), CGRectGetWidth(lineImageView.frame), CellHeight)
-        SelectedItemCell *notifications = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"通知" withImageName:@"notification_not_main" withType:PushViewTypeSetting withIndex:4 withItem:roomItem];
+        copyInviteView = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"拷贝链接" withImageName:@"link_main" withEnableImage:nil withType:PushViewTypeSetting withIndex:3 withItem:roomItem];
+        copyInviteView.delegate = self;
+        
+        SelectedItemCell *privateView = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"私密会议" withImageName:@"notification_not_main" withEnableImage:nil withType:PushViewTypeSetting withIndex:7 withItem:roomItem];
+        privateView.delegate = self;
+        
+        SelectedItemCell *notifications = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"通知" withImageName:@"notification_not_main" withEnableImage:nil withType:PushViewTypeSetting withIndex:4 withItem:roomItem];
         notifications.delegate = self;
-        //CGRectMake(CGRectGetMinX(lineImageView.frame), CGRectGetMaxY(notifications.frame), CGRectGetWidth(lineImageView.frame), CellHeight)
-        SelectedItemCell *renameRoom = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"修改会议名称" withImageName:@"rename_main" withType:PushViewTypeSetting withIndex:5 withItem:roomItem];
+        
+        SelectedItemCell *renameRoom = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"修改会议名称" withImageName:@"rename_main" withEnableImage:nil withType:PushViewTypeSetting withIndex:5 withItem:roomItem];
         renameRoom.delegate = self;
-        //CGRectMake(CGRectGetMinX(lineImageView.frame), CGRectGetMaxY(renameRoom.frame), CGRectGetWidth(lineImageView.frame), CellHeight)
-        SelectedItemCell *delegateRoom = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"删除会议" withImageName:@"delegate_main" withType:PushViewTypeSetting withIndex:6 withItem:roomItem];
+        
+        SelectedItemCell *delegateRoom = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"删除会议" withImageName:@"delegate_main" withEnableImage:nil withType:PushViewTypeSetting withIndex:6 withItem:roomItem];
         delegateRoom.delegate = self;
         
         [self.mainScrllView addSubview:joinRoom];
-        [self.mainScrllView addSubview:inviteMessage];
-        [self.mainScrllView addSubview:inviteMail];
-        [self.mainScrllView addSubview:inviteLink];
+        [self.mainScrllView addSubview:messageInviteView];
+        [self.mainScrllView addSubview:weixinInviteView];
+        [self.mainScrllView addSubview:copyInviteView];
+        [self.mainScrllView addSubview:privateView];
         [self.mainScrllView addSubview:notifications];
         [self.mainScrllView addSubview:renameRoom];
         [self.mainScrllView addSubview:delegateRoom];
         
         joinRoom.translatesAutoresizingMaskIntoConstraints = NO;
-        inviteMessage.translatesAutoresizingMaskIntoConstraints = NO;
-        inviteMail.translatesAutoresizingMaskIntoConstraints = NO;
-        inviteLink.translatesAutoresizingMaskIntoConstraints = NO;
+        messageInviteView.translatesAutoresizingMaskIntoConstraints = NO;
+        weixinInviteView.translatesAutoresizingMaskIntoConstraints = NO;
+        copyInviteView.translatesAutoresizingMaskIntoConstraints = NO;
+        privateView.translatesAutoresizingMaskIntoConstraints = NO;
         notifications.translatesAutoresizingMaskIntoConstraints = NO;
         renameRoom.translatesAutoresizingMaskIntoConstraints = NO;
         delegateRoom.translatesAutoresizingMaskIntoConstraints = NO;
@@ -557,34 +644,43 @@
         NSLayoutConstraint * cons3 = [NSLayoutConstraint constraintWithItem:joinRoom attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.f];
         
         //inviteMessage
-        NSLayoutConstraint * constraint = [NSLayoutConstraint constraintWithItem:inviteMessage attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:joinRoom attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
+        NSLayoutConstraint * constraint = [NSLayoutConstraint constraintWithItem:messageInviteView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:joinRoom attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
         
-        NSLayoutConstraint * constraint1 = [NSLayoutConstraint constraintWithItem:inviteMessage attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
+        NSLayoutConstraint * constraint1 = [NSLayoutConstraint constraintWithItem:messageInviteView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
         
-        NSLayoutConstraint * constraint2 = [NSLayoutConstraint constraintWithItem:inviteMessage attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:CellHeight];
+        NSLayoutConstraint * constraint2 = [NSLayoutConstraint constraintWithItem:messageInviteView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:CellHeight];
         
-        NSLayoutConstraint * constraint3 = [NSLayoutConstraint constraintWithItem:inviteMessage attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.f];
+        NSLayoutConstraint * constraint3 = [NSLayoutConstraint constraintWithItem:messageInviteView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.f];
         
         //inviteMail
-        NSLayoutConstraint * constraint4 = [NSLayoutConstraint constraintWithItem:inviteMail attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:inviteMessage attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
+        NSLayoutConstraint * constraint4 = [NSLayoutConstraint constraintWithItem:weixinInviteView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:messageInviteView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
         
-        NSLayoutConstraint * constraint5 = [NSLayoutConstraint constraintWithItem:inviteMail attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
+        NSLayoutConstraint * constraint5 = [NSLayoutConstraint constraintWithItem:weixinInviteView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
         
-        NSLayoutConstraint * constraint6 = [NSLayoutConstraint constraintWithItem:inviteMail attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:CellHeight];
+        NSLayoutConstraint * constraint6 = [NSLayoutConstraint constraintWithItem:weixinInviteView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:CellHeight];
         
-        NSLayoutConstraint * constraint7 = [NSLayoutConstraint constraintWithItem:inviteMail attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.f];
+        NSLayoutConstraint * constraint7 = [NSLayoutConstraint constraintWithItem:weixinInviteView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.f];
         
         //inviteLink
-        NSLayoutConstraint * constraint8 = [NSLayoutConstraint constraintWithItem:inviteLink attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:inviteMail attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
+        NSLayoutConstraint * constraint8 = [NSLayoutConstraint constraintWithItem:copyInviteView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:weixinInviteView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
         
-        NSLayoutConstraint * constraint9 = [NSLayoutConstraint constraintWithItem:inviteLink attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
+        NSLayoutConstraint * constraint9 = [NSLayoutConstraint constraintWithItem:copyInviteView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
         
-        NSLayoutConstraint * constraint10 = [NSLayoutConstraint constraintWithItem:inviteLink attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:CellHeight];
+        NSLayoutConstraint * constraint10 = [NSLayoutConstraint constraintWithItem:copyInviteView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:CellHeight];
         
-        NSLayoutConstraint * constraint11 = [NSLayoutConstraint constraintWithItem:inviteLink attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.f];
+        NSLayoutConstraint * constraint11 = [NSLayoutConstraint constraintWithItem:copyInviteView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.f];
+        
+        //private
+        NSLayoutConstraint * const1 = [NSLayoutConstraint constraintWithItem:privateView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:copyInviteView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
+        
+        NSLayoutConstraint * const2 = [NSLayoutConstraint constraintWithItem:privateView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
+        
+        NSLayoutConstraint * const3 = [NSLayoutConstraint constraintWithItem:privateView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:CellHeight];
+        
+        NSLayoutConstraint * const4 = [NSLayoutConstraint constraintWithItem:privateView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.f];
         
         //notifications
-        NSLayoutConstraint * constraint12 = [NSLayoutConstraint constraintWithItem:notifications attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:inviteLink attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
+        NSLayoutConstraint * constraint12 = [NSLayoutConstraint constraintWithItem:notifications attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:privateView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
         
         NSLayoutConstraint * constraint13 = [NSLayoutConstraint constraintWithItem:notifications attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
         
@@ -625,6 +721,12 @@
         [self.mainScrllView addConstraint:constraint9];
         [self.mainScrllView addConstraint:constraint10];
         [self.mainScrllView addConstraint:constraint11];
+        
+        [self.mainScrllView addConstraint:const1];
+        [self.mainScrllView addConstraint:const2];
+        [self.mainScrllView addConstraint:const3];
+        [self.mainScrllView addConstraint:const4];
+        
         [self.mainScrllView addConstraint:constraint12];
         [self.mainScrllView addConstraint:constraint13];
         [self.mainScrllView addConstraint:constraint14];
@@ -633,6 +735,68 @@
         [self.mainScrllView addConstraint:constraint17];
         [self.mainScrllView addConstraint:constraint18];
         [self.mainScrllView addConstraint:constraint19];
+        [self.mainScrllView addConstraint:constraint20];
+        [self.mainScrllView addConstraint:constraint21];
+        [self.mainScrllView addConstraint:constraint22];
+        [self.mainScrllView addConstraint:constraint23];
+    }else if (type == PushViewTypeSettingConferee){
+        SelectedItemCell *joinRoom = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"进入会议" withImageName:@"enter_main" withEnableImage:nil withType:PushViewTypeSettingConferee withIndex:0 withItem:roomItem];
+        joinRoom.delegate = self;
+        
+        SelectedItemCell *notifications = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"通知" withImageName:@"notification_not_main" withEnableImage:nil withType:PushViewTypeSettingConferee withIndex:4 withItem:roomItem];
+        notifications.delegate = self;
+        
+        SelectedItemCell *delegateRoom = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"删除会议" withImageName:@"delegate_main" withEnableImage:nil withType:PushViewTypeSettingConferee withIndex:6 withItem:roomItem];
+        delegateRoom.delegate = self;
+        
+        [self.mainScrllView addSubview:joinRoom];
+        [self.mainScrllView addSubview:notifications];
+        [self.mainScrllView addSubview:delegateRoom];
+        
+        joinRoom.translatesAutoresizingMaskIntoConstraints = NO;
+        notifications.translatesAutoresizingMaskIntoConstraints = NO;
+        delegateRoom.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        
+        // joinRoom
+        NSLayoutConstraint * cons = [NSLayoutConstraint constraintWithItem:joinRoom attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
+        
+        NSLayoutConstraint * cons1 = [NSLayoutConstraint constraintWithItem:joinRoom attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
+        
+        NSLayoutConstraint * cons2 = [NSLayoutConstraint constraintWithItem:joinRoom attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:CellHeight];
+        
+        NSLayoutConstraint * cons3 = [NSLayoutConstraint constraintWithItem:joinRoom attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.f];
+        
+        //notifications
+        NSLayoutConstraint * constraint12 = [NSLayoutConstraint constraintWithItem:notifications attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:joinRoom attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
+        
+        NSLayoutConstraint * constraint13 = [NSLayoutConstraint constraintWithItem:notifications attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
+        
+        NSLayoutConstraint * constraint14 = [NSLayoutConstraint constraintWithItem:notifications attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:CellHeight];
+        
+        NSLayoutConstraint * constraint15 = [NSLayoutConstraint constraintWithItem:notifications attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.f];
+        
+        
+        //delegateRoom
+        NSLayoutConstraint * constraint20 = [NSLayoutConstraint constraintWithItem:delegateRoom attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:notifications attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
+        
+        NSLayoutConstraint * constraint21 = [NSLayoutConstraint constraintWithItem:delegateRoom attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
+        
+        NSLayoutConstraint * constraint22 = [NSLayoutConstraint constraintWithItem:delegateRoom attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:CellHeight];
+        
+        NSLayoutConstraint * constraint23 = [NSLayoutConstraint constraintWithItem:delegateRoom attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:lineImageView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.f];
+        
+        [self.mainScrllView addConstraint:cons];
+        [self.mainScrllView addConstraint:cons1];
+        [self.mainScrllView addConstraint:cons2];
+        [self.mainScrllView addConstraint:cons3];
+        
+        
+        [self.mainScrllView addConstraint:constraint12];
+        [self.mainScrllView addConstraint:constraint13];
+        [self.mainScrllView addConstraint:constraint14];
+        [self.mainScrllView addConstraint:constraint15];
+        
         [self.mainScrllView addConstraint:constraint20];
         [self.mainScrllView addConstraint:constraint21];
         [self.mainScrllView addConstraint:constraint22];
@@ -647,10 +811,23 @@
     if (type == PushViewTypeSetting) {
           self.mainScrllView.contentSize = CGSizeMake(self.frame.size.width, self.frame.size.height + self.frame.size.height/2);
     }else{
-        self.mainScrllView.contentSize = self.mainScrllView.frame.size;//CGSizeMake(self.mainScrllView., self.frame.size.height);
+        self.mainScrllView.contentSize = CGSizeMake(self.frame.size.width, self.frame.size.height + self.frame.size.height/4);
     }
     [self showViewOptionWithType:type];
     lastPushViewType = type;
+    if (type == PushViewTypeSetting) {
+        if (roomItem.mettingState == 2) {
+            if (messageInviteView) {
+                [messageInviteView setViewEnable:NO];
+            }
+            if (weixinInviteView) {
+                [weixinInviteView setViewEnable:NO];
+            }
+            if (copyInviteView) {
+                [copyInviteView setViewEnable:NO];
+            }
+        }
+    }
     
     self.hidden = NO;
     [UIView animateWithDuration:0.5 animations:^{
@@ -819,6 +996,39 @@
         roomItem.canNotification = [[NSNumber numberWithBool:isOpen] stringValue];
         if ([delegate respondsToSelector:@selector(pushViewCloseOrOpenNotifications:withOpen:withIndex:)]) {
             [delegate pushViewCloseOrOpenNotifications:roomItem withOpen:isOpen withIndex:self.index];
+        }
+    }
+}
+- (void)privateMeeting:(BOOL)isPrivate
+{
+    if (isPrivate) {
+        if (messageInviteView) {
+            [messageInviteView setViewEnable:NO];
+        }
+        if (weixinInviteView) {
+            [weixinInviteView setViewEnable:NO];
+        }
+        if (copyInviteView) {
+            [copyInviteView setViewEnable:NO];
+        }
+        roomItem.mettingState = 2;
+        if ([delegate respondsToSelector:@selector(pushViewPrivateMeeting:withPrivate:withIndex:)]) {
+            [delegate pushViewPrivateMeeting:roomItem withPrivate:YES withIndex:self.index];
+        }
+        
+    }else{
+        if (messageInviteView) {
+            [messageInviteView setViewEnable:YES];
+        }
+        if (weixinInviteView) {
+            [weixinInviteView setViewEnable:YES];
+        }
+        if (copyInviteView) {
+            [copyInviteView setViewEnable:YES];
+        }
+        roomItem.mettingState = 1;
+        if ([delegate respondsToSelector:@selector(pushViewPrivateMeeting:withPrivate:withIndex:)]) {
+            [delegate pushViewPrivateMeeting:roomItem withPrivate:NO withIndex:self.index];
         }
     }
 }

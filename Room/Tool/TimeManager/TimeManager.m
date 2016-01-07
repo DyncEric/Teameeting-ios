@@ -52,7 +52,8 @@ static TimeManager *timeManger = nil;
             }
             //            time = [[NSString alloc]initWithFormat:loadMuLanguage(@"%d分钟前",@""),min];
             if (min <= 1) {
-                time = [NSString stringWithFormat:@" %d秒前",abs(time_long)];
+                //time = [NSString stringWithFormat:@" %d秒前",abs(time_long)];
+                time = [NSString stringWithFormat:@"刚刚"];
             } else {
                 time = [NSString stringWithFormat:@" %d分钟前",min];
             }
@@ -65,7 +66,7 @@ static TimeManager *timeManger = nil;
             time = [dateFormatter stringFromDate:createdAt];
         }
     }else if([self isDateThisWeek:createdAt]){
-        NSLog(@"在本周，如果昨天就不按照周几来");
+//        NSLog(@"在本周，如果昨天就不按照周几来");
         NSDateComponents *_comps = [[NSDateComponents alloc] init];
         [_comps setDay:[createdAtComponents day]];
         [_comps setMonth:[createdAtComponents month]];

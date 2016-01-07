@@ -14,6 +14,8 @@ typedef enum  ActionType {
     ModifyRoomName,
     CreateRoom,
     DeleteRoom,
+    SettingNotificationRoom,
+    SettingPrivateRoom,
     
 } ActionType;
 

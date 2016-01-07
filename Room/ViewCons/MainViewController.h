@@ -11,4 +11,6 @@
 
 @interface MainViewController : BaseViewController
 
+@property (nonatomic, strong) UITableView *roomList;
+
 @end

@@ -35,8 +35,10 @@ static NSString *kRoomCellID = @"RoomCell";
 
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource,RoomViewCellDelegate,GetRoomViewDelegate,PushViewDelegate,MFMessageComposeViewControllerDelegate>
 
+{
+    UIRefreshControl *refreshControl;
+}
 
-@property (nonatomic, strong) UITableView *roomList;
 @property (nonatomic, strong) UIButton *getRoomButton;
 @property (nonatomic, strong) PushView *push;
 @property (nonatomic, strong) GetRoomView *getRoomView;
@@ -93,6 +95,10 @@ static NSString *kRoomCellID = @"RoomCell";
     [self.view addSubview:self.roomList];
     [self.roomList registerClass:[RoomViewCell class] forCellReuseIdentifier:kRoomCellID];
     
+    refreshControl = [[UIRefreshControl alloc]init];
+    [refreshControl addTarget:self action:@selector(refreshViewControlEventValueChanged) forControlEvents:UIControlEventValueChanged];
+    [self.roomList addSubview:refreshControl];
+    
     self.getRoomButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.getRoomButton setTitle:@"获取房间" forState:UIControlStateNormal];
     [self.getRoomButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -116,7 +122,7 @@ static NSString *kRoomCellID = @"RoomCell";
     [self.navView addSubview:self.cancleButton];
     self.cancleButton.hidden = YES;
     
-    [[NtreatedDataManage sharedManager] dealwithDataWithTarget:self];
+    
     
     if (ISIPAD) {
         self.listBgView.frame = CGRectMake(0, 0, IPADLISTWIDTH, CGRectGetHeight(self.view.frame));
@@ -141,10 +147,15 @@ static NSString *kRoomCellID = @"RoomCell";
     
     [self.view bringSubviewToFront:self.navView];
 }
+- (void)refreshViewControlEventValueChanged
+{
+    [refreshControl endRefreshing];
+    [self.roomList reloadData];
+    
+}
 // 旋转屏幕适配
 - (void)viewDidLayoutSubviews
 {
-    NSLog(@"viewDidLayoutSubviews:%ld",(long)self.interfaceOrientation);
      [self refreshImage];
     if (self.oldInterface == self.interfaceOrientation || !ISIPAD) {
         return;
@@ -179,8 +190,6 @@ static NSString *kRoomCellID = @"RoomCell";
     
     self.oldInterface = self.interfaceOrientation;
     [self refreshImage];
-
-    [[NtreatedDataManage sharedManager] dealwithDataWithTarget:self];
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch {
@@ -294,6 +303,7 @@ static NSString *kRoomCellID = @"RoomCell";
                     [weakSelf.dataArray addObjectsFromArray:roomVO.deviceItemsList];
                 }
                 [weakSelf.roomList reloadData];
+                [[NtreatedDataManage sharedManager] dealwithDataWithTarget:self];
                 AppDelegate *apple = [RoomApp shead].appDelgate;
                 UIView *initView = [apple.window.rootViewController.view viewWithTag:400];
                 if (initView) {
@@ -303,11 +313,7 @@ static NSString *kRoomCellID = @"RoomCell";
                         [initView removeFromSuperview];
                     }];
                 }
-            }else{
-                
             }
-        }else{
-            
         }
     }];
 }
@@ -455,10 +461,11 @@ static NSString *kRoomCellID = @"RoomCell";
         if (!error) {
             if ([[dict objectForKey:@"code"] intValue]== 200) {
                 [weakSelf updataDataWithServerResponse:[dict objectForKey:@"meetingInfo"]];
+                 [[NtreatedDataManage sharedManager] removeData:data];
                 
             }
         }
-        [[NtreatedDataManage sharedManager] removeData:data];
+       
     }];
 }
 
@@ -502,7 +509,13 @@ static NSString *kRoomCellID = @"RoomCell";
     
     [ServerVisit updatateRoomNameWithSign:[ServerVisit shead].authorization mettingID:roomItem.roomID mettingName:roomName completion:^(AFHTTPRequestOperation *operation, id responseData, NSError *error) {
         NSLog(@"updata name");
-        [[NtreatedDataManage sharedManager] removeData:data];
+         NSDictionary *dict = (NSDictionary*)responseData;
+        if (!error) {
+            if ([[dict objectForKey:@"code"] intValue]== 200) {
+                [[NtreatedDataManage sharedManager] removeData:data];
+                
+            }
+        }
     }];
 }
 // 删除room
@@ -534,7 +547,13 @@ static NSString *kRoomCellID = @"RoomCell";
     
     [ServerVisit deleteRoomWithSign:[ServerVisit shead].authorization meetingID:item.roomID completion:^(AFHTTPRequestOperation *operation, id responseData, NSError *error) {
         NSLog(@"delete room");
-        [[NtreatedDataManage sharedManager] removeData:data];
+        NSDictionary *dict = (NSDictionary*)responseData;
+        if (!error) {
+            if ([[dict objectForKey:@"code"] intValue]== 200) {
+                [[NtreatedDataManage sharedManager] removeData:data];
+                
+            }
+        }
     }];
 }
 // 更新推送与否
@@ -561,6 +580,37 @@ static NSString *kRoomCellID = @"RoomCell";
     
     [ServerVisit updateRoomPushableWithSign:[ServerVisit shead].authorization meetingID:item.roomID pushable:[NSString stringWithFormat:@"%d",close] completion:^(AFHTTPRequestOperation *operation, id responseData, NSError *error) {
         NSLog(@"open or close push");
+    }];
+}
+// 设置私密会议与否
+- (void)setPrivateMeeting:(RoomItem*)item withPrivate:(BOOL)private withIndex:(NSInteger)index
+{
+    [dataArray replaceObjectAtIndex:index withObject:item];
+    
+    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+    
+    NSIndexPath *indexP = [NSIndexPath indexPathForRow:index inSection:0];
+    
+    [indexPaths addObject: indexP];
+    
+    [self.roomList beginUpdates];
+    
+    [self.roomList reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    
+    [self.roomList endUpdates];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.roomList reloadData];
+    });
+    
+    NSString *enable;
+    if (private) {
+        enable = @"2";
+    }else{
+        enable = @"1";
+    }
+    [ServerVisit updateRoomEnableWithSign:[ServerVisit shead].authorization meetingID:item.roomID enable:enable completion:^(AFHTTPRequestOperation *operation, id responseData, NSError *error) {
+        NSLog(@"private meeting");
     }];
 }
 
@@ -726,6 +776,10 @@ static NSString *kRoomCellID = @"RoomCell";
 - (void)pushViewCloseOrOpenNotifications:(RoomItem *)obj withOpen:(BOOL)isOpen withIndex:(NSInteger)index
 {
     [self updateNotification:obj withClose:isOpen withIndex:index];
+}
+- (void)pushViewPrivateMeeting:(RoomItem*)obj withPrivate:(BOOL)isPrivate withIndex:(NSInteger)index
+{
+    [self setPrivateMeeting:obj withPrivate:isPrivate withIndex:index];
 }
 
 - (void)pushViewRenameRoom:(RoomItem*)obj
