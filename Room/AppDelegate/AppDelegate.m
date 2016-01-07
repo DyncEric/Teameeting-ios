@@ -14,6 +14,7 @@
 #import "WXApi.h"
 #import "WXApiManager.h"
 #import "RoomApp.h"
+#import "APService.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -40,23 +41,27 @@
         }
     }
     
-    /// 需要区分iOS SDK版本和iOS版本。
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)])
-    {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge|UIUserNotificationTypeAlert|UIUserNotificationTypeSound) categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         
-    } else
-#endif
-    {
-        /// 去除warning
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-#pragma clang diagnostic pop
+        [APService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                                       UIUserNotificationTypeSound |
+                                                       UIUserNotificationTypeAlert)
+                                           categories:nil];
+    } else {
+        
+        [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                       UIRemoteNotificationTypeSound |
+                                                       UIRemoteNotificationTypeAlert)
+                                           categories:nil];
     }
+    #else
+    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                   UIRemoteNotificationTypeSound |
+                                                   UIRemoteNotificationTypeAlert)
+                                       categories:nil];
+    #endif
+    [APService setupWithOption:launchOptions];
     
     [WXApi registerApp:@"wx4d9fbaec0a4c368f" withDescription:@"demo 2.0"];
     UINavigationController *nai = [[UINavigationController alloc] initWithRootViewController:[MainViewController new]];
@@ -68,16 +73,12 @@
     return YES;
 }
 
-/// iOS8下申请DeviceToken
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotifications)]) {
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-    }
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    [APService handleRemoteNotification:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+    
 }
-#endif
-
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
@@ -85,18 +86,14 @@
     realDeviceToken = [realDeviceToken stringByReplacingOccurrencesOfString:@"<" withString:@""];
     realDeviceToken = [realDeviceToken stringByReplacingOccurrencesOfString:@">" withString:@""];
     realDeviceToken = [realDeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
-    [ServerVisit shead].deviceToken = realDeviceToken;
-    // update deviceToken
-    if (![[ServerVisit shead].authorization isEqualToString:@""]) {
-        [ServerVisit updateDeviceTokenWithSign:[ServerVisit shead].authorization withToken:realDeviceToken completion:^(AFHTTPRequestOperation *operation, id responseData, NSError *error) {
-            NSLog(@"update device token");
-        }];
-    }
+    
+    [APService registerDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    
+    [[[UIAlertView alloc] initWithTitle:@"" message:@"ok" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil] show];
+    [APService handleRemoteNotification:userInfo];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {

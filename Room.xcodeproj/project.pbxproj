@@ -154,6 +154,11 @@
 		FC592AF51C2928D20055EDCC /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC592AF11C2928D20055EDCC /* libWeChatSDK.a */; };
 		FC9B3D741C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B3D711C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a */; };
 		FC9B3D751C3CEB8700C86F89 /* TMMessageManage.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9B3D731C3CEB8700C86F89 /* TMMessageManage.m */; };
+		FC9B3D791C3D165700C86F89 /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B3D781C3D165700C86F89 /* libPushSDK-1.8.8.a */; };
+		FC9B3D7B1C3D1CE700C86F89 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B3D7A1C3D1CE700C86F89 /* CFNetwork.framework */; };
+		FC9B3D7D1C3D1D1100C86F89 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B3D7C1C3D1D1100C86F89 /* CoreGraphics.framework */; };
+		FC9B3D7F1C3D1D2500C86F89 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B3D7E1C3D1D2500C86F89 /* Security.framework */; };
+		FC9B3D811C3D1D5400C86F89 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC9B3D801C3D1D5400C86F89 /* PushConfig.plist */; };
 		FCB6026D1C2BC6FA00469FA2 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB602601C2BC6FA00469FA2 /* WXApiManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FCB6026E1C2BC6FA00469FA2 /* WXApiRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB602621C2BC6FA00469FA2 /* WXApiRequestHandler.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FCB6026F1C2BC6FA00469FA2 /* WXApiResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB602641C2BC6FA00469FA2 /* WXApiResponseHandler.m */; };
@@ -402,6 +407,12 @@
 		FC9B3D711C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "librtcmsgclient-tm-ios.a"; sourceTree = "<group>"; };
 		FC9B3D721C3CEB8700C86F89 /* TMMessageManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMessageManage.h; sourceTree = "<group>"; };
 		FC9B3D731C3CEB8700C86F89 /* TMMessageManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMessageManage.m; sourceTree = "<group>"; };
+		FC9B3D771C3D165700C86F89 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
+		FC9B3D781C3D165700C86F89 /* libPushSDK-1.8.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.8.a"; sourceTree = "<group>"; };
+		FC9B3D7A1C3D1CE700C86F89 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		FC9B3D7C1C3D1D1100C86F89 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FC9B3D7E1C3D1D2500C86F89 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		FC9B3D801C3D1D5400C86F89 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
 		FCB6025F1C2BC6FA00469FA2 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
 		FCB602601C2BC6FA00469FA2 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		FCB602611C2BC6FA00469FA2 /* WXApiRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiRequestHandler.h; sourceTree = "<group>"; };
@@ -440,6 +451,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC9B3D7F1C3D1D2500C86F89 /* Security.framework in Frameworks */,
+				FC9B3D7D1C3D1D1100C86F89 /* CoreGraphics.framework in Frameworks */,
+				FC9B3D7B1C3D1CE700C86F89 /* CFNetwork.framework in Frameworks */,
 				78D440361C33BD0700738C86 /* Accelerate.framework in Frameworks */,
 				FC1597E41C293550009F8FB4 /* libsqlite3.0.tbd in Frameworks */,
 				FC1597E21C293525009F8FB4 /* SystemConfiguration.framework in Frameworks */,
@@ -453,6 +467,7 @@
 				780250831C0E9E1E00435DC7 /* libstdc++.6.0.9.tbd in Frameworks */,
 				7802507F1C0E9E0D00435DC7 /* libicucore.tbd in Frameworks */,
 				780250481C0E998F00435DC7 /* libJniceSDK.a in Frameworks */,
+				FC9B3D791C3D165700C86F89 /* libPushSDK-1.8.8.a in Frameworks */,
 				A69BBC80EC1AA108834FA3A1 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,6 +510,7 @@
 		78024F881C0E96DF00435DC7 = {
 			isa = PBXGroup;
 			children = (
+				FC9B3D801C3D1D5400C86F89 /* PushConfig.plist */,
 				780114AD1C3233FD0015CA63 /* Room-Prefix.pch */,
 				78024F931C0E96DF00435DC7 /* Room */,
 				78024FAD1C0E96DF00435DC7 /* RoomTests */,
@@ -518,6 +534,7 @@
 		78024F931C0E96DF00435DC7 /* Room */ = {
 			isa = PBXGroup;
 			children = (
+				FC9B3D761C3D165700C86F89 /* JPush */,
 				7802508C1C0E9F2200435DC7 /* Resources */,
 				780250751C0E99E400435DC7 /* Model */,
 				780250681C0E99C900435DC7 /* Views */,
@@ -992,6 +1009,9 @@
 		A792500469739FC2B404CD56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FC9B3D7E1C3D1D2500C86F89 /* Security.framework */,
+				FC9B3D7C1C3D1D1100C86F89 /* CoreGraphics.framework */,
+				FC9B3D7A1C3D1CE700C86F89 /* CFNetwork.framework */,
 				78D440351C33BD0700738C86 /* Accelerate.framework */,
 				FC1597E31C293550009F8FB4 /* libsqlite3.0.tbd */,
 				FC1597E11C293525009F8FB4 /* SystemConfiguration.framework */,
@@ -1029,6 +1049,16 @@
 				FC9B3D701C3CEB8700C86F89 /* TMMsgSender.h */,
 			);
 			path = include;
+			sourceTree = "<group>";
+		};
+		FC9B3D761C3D165700C86F89 /* JPush */ = {
+			isa = PBXGroup;
+			children = (
+				FC9B3D771C3D165700C86F89 /* APService.h */,
+				FC9B3D781C3D165700C86F89 /* libPushSDK-1.8.8.a */,
+			);
+			name = JPush;
+			path = Three/JPush;
 			sourceTree = "<group>";
 		};
 		FCB6025B1C2B822E00469FA2 /* RtcMesg */ = {
@@ -1271,6 +1301,7 @@
 				78FFEF4D1C34FE220076DF49 /* Default-Portrait~ipad.png.png in Resources */,
 				78FC36291C0FF265001BEDD7 /* rename_main@2x.png in Resources */,
 				780250C31C0E9F2200435DC7 /* messageInvite@2x.png in Resources */,
+				FC9B3D811C3D1D5400C86F89 /* PushConfig.plist in Resources */,
 				780250591C0E998F00435DC7 /* 0.jpeg in Resources */,
 				780250C51C0E9F2200435DC7 /* mic@2x.png in Resources */,
 				780250CC1C0E9F2200435DC7 /* noMic@3x.png in Resources */,
@@ -1581,6 +1612,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = KeychainAccessGroups.plist;
+				CODE_SIGN_IDENTITY = "iPhone Developer: yangyang wang (3VG6DLPKJ2)";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Room-Prefix.pch";
@@ -1594,7 +1626,7 @@
 					"$(PROJECT_DIR)/Room/Tool/AtcMesg",
 					"$(PROJECT_DIR)/Room/Tool/RtcMesg",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.avcon.Room;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dync.teameeting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1607,6 +1639,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = KeychainAccessGroups.plist;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Boyuan Electronic Technology Co. Ltd (5543CP4MRT)";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Room-Prefix.pch";
@@ -1620,7 +1653,7 @@
 					"$(PROJECT_DIR)/Room/Tool/AtcMesg",
 					"$(PROJECT_DIR)/Room/Tool/RtcMesg",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.avcon.Room;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dync.teameeting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
