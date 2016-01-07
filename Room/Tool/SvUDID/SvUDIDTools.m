@@ -43,6 +43,7 @@ static const char kKeyChainUDIDAccessGroup[] = "3YB54BC6QT.com.avcon.Room";
         [SvUDIDTools settUDIDToKeyChain:udid];
     }
     // 返回小写
+    NSLog(@"UUID:%@",[udid lowercaseString]);
     return [udid lowercaseString];
 }
 

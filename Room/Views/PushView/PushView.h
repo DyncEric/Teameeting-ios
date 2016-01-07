@@ -12,6 +12,7 @@
 typedef NS_ENUM(NSInteger, PushViewType) {
     PushViewTypeDefault = 0,                         // default type
     PushViewTypeSetting ,                            // setting type
+    PushViewTypeSettingConferee ,                    // Conferee type
     PushViewTypeNone,                                // no type
 };
 
@@ -22,6 +23,7 @@ typedef NS_ENUM(NSInteger, PushViewType) {
 - (void)pushViewInviteViaLink:(RoomItem*)obj;
 - (void)pushViewJoinRoom:(RoomItem*)obj;
 - (void)pushViewCloseOrOpenNotifications:(RoomItem*)obj withOpen:(BOOL)isOpen withIndex:(NSInteger)index;
+- (void)pushViewPrivateMeeting:(RoomItem*)obj withPrivate:(BOOL)isPrivate withIndex:(NSInteger)index;
 - (void)pushViewRenameRoom:(RoomItem*)obj;
 - (void)pushViewDelegateRoom:(RoomItem*)obj withIndex:(NSInteger)index;
 @end

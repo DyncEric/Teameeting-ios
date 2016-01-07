@@ -99,24 +99,6 @@
         view.translatesAutoresizingMaskIntoConstraints = NO;
     }
     self.settingButton.translatesAutoresizingMaskIntoConstraints = NO;
-//    NSDictionary *views = NSDictionaryOfVariableBindings(roomNameLabel, timeLabel, numLabel, notificationImageView,settingButton,lineImageView);
-//    
-//    // 时间和名字label距离左边10像素
-//     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[roomNameLabel]-5-[timeLabel]" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];
-//    
-//     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-15.0-[roomNameLabel]" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];
-//    
-//    
-//    
-//     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[settingButton]-15-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
-//    
-//     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[settingButton]-15.0-|" options:NSLayoutFormatAlignAllRight metrics:nil views:views]];
-//
-//    
-//    // 设置下划线左右对齐，并靠下
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[lineImageView]-0-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:views]];
-    
-//    self.settingButton.frame = CGRectMake(0, 0, 40, 20);
     
     self.toplineImageView.frame = CGRectMake(0, -.5, [UIScreen mainScreen].bounds.size.width, .5);
     self.lineImageView.frame = CGRectMake(0, cellHeight - .5, [UIScreen mainScreen].bounds.size.width, .5);
@@ -197,19 +179,6 @@
     [self.contentView addConstraint:constraint19];
     [self.contentView addConstraint:constraint20];
     [self.contentView addConstraint:constraint21];
-    
-//    self.roomNameLabel.frame = CGRectMake(15, offset, 100, 18);
-//    self.timeLabel.frame = CGRectMake(CGRectGetMinX(self.roomNameLabel.frame), CGRectGetMaxY(self.roomNameLabel.frame)+ 5, [UIScreen mainScreen].bounds.size.width/2, 14);
-//    
-//    self.settingButton.frame = CGRectMake(0, 0, 40, 20);
-//    
-//    self.notificationImageView.frame = CGRectMake(CGRectGetMinX(self.settingButton.frame) - 40, (cellHeight - 30)/2, 20, 30);
-//    
-//    self.numLabel.frame = CGRectMake(CGRectGetMinX(self.notificationImageView.frame)-80, (cellHeight - 30)/2, 60,30);
-//    
-  
-//    
-//    self.activityIndicatorView.center = CGPointMake([UIScreen mainScreen].bounds.size.width - 40, cellHeight/2);
 }
 
 // 事件处理

@@ -7,11 +7,10 @@
 //
 
 #import "GetRoomView.h"
-#import "CustomInputAccessoryView.h"
 
 #define GetRoomViewHeight 60
 #define TextViewHeight 24
-@interface GetRoomView()<UITextFieldDelegate,CustomInputAccessoryViewDelegate>
+@interface GetRoomView()<UITextFieldDelegate>
 {
     UIView *textInputView;  // 输入栏view
     
@@ -67,8 +66,6 @@
         textInputTextView = [[UITextField alloc] initWithFrame:CGRectMake(15, -(GetRoomViewHeight-TextViewHeight)/2, CGRectGetWidth(textInputView.frame) - 30, TextViewHeight)];
    
         [self addSubview:textInputTextView];
-        CustomInputAccessoryView *customInputView = [[CustomInputAccessoryView alloc] initWithTextField:textInputTextView];
-        customInputView.delegate = self;
         textInputTextView.placeholder = @"房间名字";
         [textInputTextView setValue:[UIColor colorWithRed:146.0/255.0 green:160.0/255.0 blue:169.0/255.0 alpha:1.0] forKeyPath:@"_placeholderLabel.textColor"];
          [textInputTextView setValue:[UIFont boldSystemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];
@@ -335,11 +332,6 @@
 {
     [self dismissGetRoomView];
     return YES;
-}
-#pragma mark - CustomInputAccessoryViewDelegate
-- (void) customInputAccessoryViewDelegateOpenPrivate:(BOOL)isOpen
-{
-    self.isPrivateMetting = isOpen;
 }
 /*
 // Only override drawRect: if you perform custom drawing.
