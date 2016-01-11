@@ -20,17 +20,17 @@
 
 - (void)drawRect:(CGRect)rect {
     
-    //1.获取图形上下文
+    //1.context
     CGContextRef ctx=UIGraphicsGetCurrentContext();
-    //2.绘图（画线）
+    //2.set strokecolor
     CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 133.0/255.0, 138.0/255.0, 141.0/255.0, 1);
     
-    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 1);  //线宽
-    //设置起点
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 1);  //line width
+    //setting start point
     CGContextMoveToPoint(ctx, 0, self.bounds.size.height);
-    //设置终点
+    //setting end point
     CGContextAddLineToPoint(ctx, self.bounds.size.width, self.bounds.size.height);
-    //渲染
+    //rendering
     CGContextStrokePath(ctx);
 }
 

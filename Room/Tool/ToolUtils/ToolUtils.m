@@ -10,6 +10,26 @@
 #import "UIDevice+Category.h"
 
 @implementation ToolUtils
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.meetingID = nil;
+    }
+    return self;
+}
+static ToolUtils *toolUtils = nil;
+
++(ToolUtils*)shead
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        toolUtils = [[ToolUtils alloc] init];
+    });
+    return toolUtils;
+}
+
 /**
  2  *  check if user allow local notification of system setting
  3  *

@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import "RoomVO.h"
 
 @interface MainViewController : BaseViewController
 
 @property (nonatomic, strong) UITableView *roomList;
+
+- (void)insertUserMeetingRoomWithID:(RoomItem*)item;
 
 @end

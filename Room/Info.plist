@@ -24,10 +24,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.avcon.Room</string>
+			<string>com.dync.teameeting</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>IOSVideoMetting</string>
+				<string>teameeting</string>
 			</array>
 		</dict>
 	</array>
@@ -36,6 +36,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>weixin</string>
+        <string>teameeting</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

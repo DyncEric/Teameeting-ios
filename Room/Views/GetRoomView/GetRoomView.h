@@ -10,7 +10,7 @@
 
 @protocol GetRoomViewDelegate <NSObject>
 
-- (void)showCancleButton;//显示取消的button
+- (void)showCancleButton;//show cancle button
 
 - (void)cancleRename:(NSString*)oldName;    // cancle rename room name
 

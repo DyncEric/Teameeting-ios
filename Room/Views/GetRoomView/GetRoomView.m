@@ -12,11 +12,11 @@
 #define TextViewHeight 24
 @interface GetRoomView()<UITextFieldDelegate>
 {
-    UIView *textInputView;  // 输入栏view
+    UIView *textInputView;  // input view
     
-    UITextField *textInputTextView; // 输入框
+    UITextField *textInputTextView; // input file view
     
-    UIImageView *dismissButton;  // 隐藏view;
+    UIImageView *dismissButton;  // dismiss view;
     
     UIView *parentsView;
     
@@ -41,13 +41,10 @@
         parentsView = parview;
         
         self.backgroundColor = [UIColor clearColor];
-        
-//        dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
         dismissButton= [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-//        dismissButton.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-//        [dismissButton addTarget:self action:@selector(dismissGetRoomView) forControlEvents:UIControlEventTouchUpInside];
         [parview addSubview:dismissButton];
-        [parview sendSubviewToBack:dismissButton];
+//        [parview sendSubviewToBack:dismissButton];
         
         dismissButton.hidden = YES;
         if (ISIPAD) {

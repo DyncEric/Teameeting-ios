@@ -104,7 +104,7 @@
     self.lineImageView.frame = CGRectMake(0, cellHeight - .5, [UIScreen mainScreen].bounds.size.width, .5);
     
     CGFloat offset = (cellHeight - 35)/2;
-    // 设置按钮坐标
+    
     NSLayoutConstraint * constraint = [NSLayoutConstraint constraintWithItem:self.settingButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-15.0f];
     
     NSLayoutConstraint * constraint1 = [NSLayoutConstraint constraintWithItem:self.settingButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:40.0f];
@@ -113,8 +113,7 @@
     
     NSLayoutConstraint * constraint3 = [NSLayoutConstraint constraintWithItem:self.settingButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.f];
 
-    
-    // 房间名字坐标
+
     NSLayoutConstraint * constraint4 = [NSLayoutConstraint constraintWithItem:self.roomNameLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0f constant:offset];
     
     NSLayoutConstraint * constraint5 = [NSLayoutConstraint constraintWithItem:self.roomNameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:15.0f];
@@ -123,7 +122,7 @@
     
     NSLayoutConstraint * constraint7 = [NSLayoutConstraint constraintWithItem:self.roomNameLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeHeight multiplier:0.3f constant:0.f];
     
-    // 时间坐标
+
     NSLayoutConstraint * constraint8 = [NSLayoutConstraint constraintWithItem:self.timeLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.roomNameLabel attribute:NSLayoutAttributeBottom multiplier:1.0f constant:offset/3];
     
     NSLayoutConstraint * constraint9 = [NSLayoutConstraint constraintWithItem:self.timeLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:15.0f];
@@ -132,13 +131,12 @@
     
     NSLayoutConstraint * constraint11 = [NSLayoutConstraint constraintWithItem:self.timeLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeHeight multiplier:0.25f constant:0.f];
     
-    // 旋转坐标
+
     NSLayoutConstraint * constraint12 = [NSLayoutConstraint constraintWithItem:self.activityIndicatorView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-20.0f];
     
     NSLayoutConstraint * constraint13 = [NSLayoutConstraint constraintWithItem:self.activityIndicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.f];
     
     
-    // 通知坐标
     NSLayoutConstraint * constraint14 = [NSLayoutConstraint constraintWithItem:self.notificationImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:30.0f];
     
     NSLayoutConstraint * constraint15 = [NSLayoutConstraint constraintWithItem:self.notificationImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:30.0f];
@@ -147,7 +145,7 @@
     
     NSLayoutConstraint * constraint17 = [NSLayoutConstraint constraintWithItem:self.notificationImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.settingButton attribute:NSLayoutAttributeLeft multiplier:1.0f constant:-30.f];
     
-   // 人数
+
     NSLayoutConstraint * constraint18 = [NSLayoutConstraint constraintWithItem:self.memberView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:60.0f];
     
     NSLayoutConstraint * constraint19 = [NSLayoutConstraint constraintWithItem:self.memberView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:25.0f];
@@ -181,7 +179,6 @@
     [self.contentView addConstraint:constraint21];
 }
 
-// 事件处理
 - (void)settingButtonEvent:(UIButton*)button
 {
     if (delegate && [delegate respondsToSelector:@selector(roomViewCellDlegateSettingEvent:)]) {

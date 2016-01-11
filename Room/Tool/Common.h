@@ -11,4 +11,5 @@
 
 #define ISIPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) // 判断设备是不是iPad
 #define ISIPADMainList 320   // 列表的宽度
+#define ShareMettingNotification @"ShareMettingNotification"
 #endif /* Common_h */

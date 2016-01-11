@@ -9,11 +9,9 @@
 #import "MainViewController.h"
 #import "PushView.h"
 #import "RoomViewCell.h"
-#import "UIImageView+LBBlurredImage.h"
 
 #import "GetRoomView.h"
 #import "VideoCallViewController.h"
-#import "RoomVO.h"
 #import "ServerVisit.h"
 #import "SvUDIDTools.h"
 #import "ToolUtils.h"
@@ -28,6 +26,10 @@
 #import "AppDelegate.h"
 #import "NtreatedDataManage.h"
 
+#import "EmptyViewFactory.h"
+#import "EnterMeetingIDViewController.h"
+#import "UIImage+Category.h"
+#import "TMMessageManage.h"
 
 static NSString *kRoomCellID = @"RoomCell";
 
@@ -43,8 +45,9 @@ static NSString *kRoomCellID = @"RoomCell";
 @property (nonatomic, strong) PushView *push;
 @property (nonatomic, strong) GetRoomView *getRoomView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
-@property (nonatomic, strong) NSMutableArray *tempDataArray; // 临时数据
-@property (nonatomic, strong) UIButton *cancleButton;    // 取消创建房间
+@property (nonatomic, strong) NSMutableArray *tempDataArray; // temp data
+@property (nonatomic, strong) UIButton *cancleButton;    // cancle create room button
+@property (nonatomic, strong) UIButton *inputButton;
 @property (nonatomic, strong) RoomAlertView *netAlertView;
 @property (nonatomic, strong) NavView *navView;
 @property (nonatomic, assign) UIInterfaceOrientation oldInterface;
@@ -65,7 +68,6 @@ static NSString *kRoomCellID = @"RoomCell";
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.title = @"房间";
     self.oldInterface = self.interfaceOrientation;
     self.view.backgroundColor = [UIColor clearColor];
     
@@ -122,7 +124,10 @@ static NSString *kRoomCellID = @"RoomCell";
     [self.navView addSubview:self.cancleButton];
     self.cancleButton.hidden = YES;
     
-    
+    self.inputButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.inputButton setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+    [self.inputButton addTarget:self action:@selector(inputButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navView addSubview:self.inputButton];
     
     if (ISIPAD) {
         self.listBgView.frame = CGRectMake(0, 0, IPADLISTWIDTH, CGRectGetHeight(self.view.frame));
@@ -139,13 +144,16 @@ static NSString *kRoomCellID = @"RoomCell";
         self.getRoomButton.frame = CGRectMake(15, CGRectGetMaxY(self.view.frame) - 60,self.view.bounds.size.width -30, 45);
 
     }
-
+    self.inputButton.frame = CGRectMake(CGRectGetWidth(self.navView.frame)-40, 30, 30, 30);
+    
     self.push = [[PushView alloc] initWithFrame:self.view.bounds];
     self.push.delegate = self;
     AppDelegate *apple = [RoomApp shead].appDelgate;
     [apple.window.rootViewController.view addSubview:self.push];
     
     [self.view bringSubviewToFront:self.navView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shareMettingNotification:) name:ShareMettingNotification object:nil];
 }
 - (void)refreshViewControlEventValueChanged
 {
@@ -209,9 +217,20 @@ static NSString *kRoomCellID = @"RoomCell";
     if (!image) {
         return;
     }
-    [self.listBgView setImageToBlur:image  blurRadius:20 completionBlock:^(){}];
+    UIColor *color = [UIColor colorWithRed:.1 green:.1 blue:.1 alpha:.8];
+   UIImage * bgimage = [image applyBlurWithRadius:20 tintColor:color saturationDeltaFactor:1.8 maskImage:nil];
+    [self.listBgView setImage:bgimage];
+   // [self.listBgView setImageToBlur:image  blurRadius:20 completionBlock:^(){}];
 }
-
+- (void)shareMettingNotification:(NSNotification*)notification
+{
+    NSString *meetingID = [notification object];
+    if (![[ServerVisit shead].authorization isEqualToString:@""]) {
+        [self addItemAndEnterMettingWithID:meetingID];
+    }else{
+        [ToolUtils shead].meetingID = meetingID;
+    }
+}
 #pragma mark -private methods
 - (void)initUser
 {
@@ -281,6 +300,8 @@ static NSString *kRoomCellID = @"RoomCell";
                 if ([[dict objectForKey:@"code"] integerValue] == 200) {
                     [ServerVisit shead].authorization = [dict objectForKey:@"authorization"];
                     [weakSelf getData];
+                    [[TMMessageManage sharedManager] OnMsgServerConnected];
+                    
                 }else{
                     
                 }
@@ -303,7 +324,13 @@ static NSString *kRoomCellID = @"RoomCell";
                     [weakSelf.dataArray addObjectsFromArray:roomVO.deviceItemsList];
                 }
                 [weakSelf.roomList reloadData];
+                if (weakSelf.dataArray.count == 0) {
+                    [EmptyViewFactory emptyMainView:weakSelf.roomList];
+                }
                 [[NtreatedDataManage sharedManager] dealwithDataWithTarget:self];
+                if ([ToolUtils shead].meetingID != nil) {
+                    [weakSelf addItemAndEnterMettingWithID:[ToolUtils shead].meetingID];
+                }
                 AppDelegate *apple = [RoomApp shead].appDelgate;
                 UIView *initView = [apple.window.rootViewController.view viewWithTag:400];
                 if (initView) {
@@ -371,7 +398,7 @@ static NSString *kRoomCellID = @"RoomCell";
     
     MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
     picker.messageComposeDelegate =self;
-    NSString *smsBody =[NSString stringWithFormat:@"Let's meet on room now! https://anyrtc.io/#%@",roomID];
+    NSString *smsBody =[NSString stringWithFormat:@"让我们在会议中见!👉 http://115.28.70.232/share_meetingRoom#%@",roomID];
     
     picker.body=smsBody;
     
@@ -385,6 +412,7 @@ static NSString *kRoomCellID = @"RoomCell";
 #pragma mark - button events
 - (void)getRoomButtonEvent:(UIButton*)button
 {
+    self.inputButton.hidden = YES;
     if (self.roomList.isEditing) {
         self.roomList.editing = NO;
     }
@@ -417,6 +445,14 @@ static NSString *kRoomCellID = @"RoomCell";
     if (self.getRoomView) {
         [self.getRoomView dismissView];
     }
+  
+}
+- (void)inputButtonEvent:(UIButton*)button
+{
+    EnterMeetingIDViewController *enterMeetingController = [EnterMeetingIDViewController new];
+    enterMeetingController.mainViewController = self;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:enterMeetingController];
+    [self presentViewController:nav animated:NO completion:nil];
 }
 #pragma mark - publish server methods
 - (void)updataDataWithServerResponse:(NSDictionary*)dict
@@ -440,11 +476,7 @@ static NSString *kRoomCellID = @"RoomCell";
     
     [dataArray replaceObjectAtIndex:0 withObject:roomItem];
     [self.roomList reloadData];
-    
-    // 显示设置项目
-    if (self.push) {
-        [self.push showWithType:PushViewTypeDefault withObject:roomItem withIndex:0];
-    }
+
     self.cancleButton.hidden = YES;
     
     NtreatedData *data = [[NtreatedData alloc] init];
@@ -462,31 +494,30 @@ static NSString *kRoomCellID = @"RoomCell";
             if ([[dict objectForKey:@"code"] intValue]== 200) {
                 [weakSelf updataDataWithServerResponse:[dict objectForKey:@"meetingInfo"]];
                  [[NtreatedDataManage sharedManager] removeData:data];
-                
+                [weakSelf.push showWithType:PushViewTypeDefault withObject:roomItem withIndex:0];
+                [[TMMessageManage sharedManager] tmRoomCmd:TMCMD_CREATE Userid:nil pass:[ServerVisit shead].authorization roomid:roomItem.roomID remain:@""];
             }
         }
        
     }];
 }
 
-// 更新名字
+// update room name
 - (void)addTempDeleteData:(NSString*)roomName
 {
     if (dataArray.count==0) {
         return;
     }
-    // 更改一下对象
+    // update object
     RoomItem *roomItem = [dataArray objectAtIndex:0];
     roomItem.roomName = roomName;
     [dataArray replaceObjectAtIndex:0 withObject:roomItem];
     
     
-    // 先把数据添加上，在搞下面的
     NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
     for (NSInteger i = tempDataArray.count-1; i>-1; i--) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [indexPaths addObject: indexPath];
-        // 把之前删除的数据加上
         RoomItem *item = [tempDataArray objectAtIndex:i];
         [dataArray insertObject:item atIndex:0];
     }
@@ -518,7 +549,7 @@ static NSString *kRoomCellID = @"RoomCell";
         }
     }];
 }
-// 删除room
+// delete room
 - (void)deleteRoomWithItem:(RoomItem*)item withIndex:(NSInteger)index
 {
     
@@ -528,7 +559,6 @@ static NSString *kRoomCellID = @"RoomCell";
     [[NtreatedDataManage sharedManager] addData:data];
     
     [dataArray removeObject:item];
-    // 先把数据添加上，在搞下面的
     
     NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
     
@@ -537,7 +567,7 @@ static NSString *kRoomCellID = @"RoomCell";
     [indexPaths addObject: indexP];
     [self.roomList beginUpdates];
     
-    [self.roomList deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    [self.roomList deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
     
     [self.roomList endUpdates];
     
@@ -556,7 +586,7 @@ static NSString *kRoomCellID = @"RoomCell";
         }
     }];
 }
-// 更新推送与否
+// update room can notification
 - (void)updateNotification:(RoomItem*)item withClose:(BOOL)close withIndex:(NSInteger)index
 {
     [dataArray replaceObjectAtIndex:index withObject:item];
@@ -582,7 +612,7 @@ static NSString *kRoomCellID = @"RoomCell";
         NSLog(@"open or close push");
     }];
 }
-// 设置私密会议与否
+// setting room is private
 - (void)setPrivateMeeting:(RoomItem*)item withPrivate:(BOOL)private withIndex:(NSInteger)index
 {
     [dataArray replaceObjectAtIndex:index withObject:item];
@@ -613,6 +643,109 @@ static NSString *kRoomCellID = @"RoomCell";
         NSLog(@"private meeting");
     }];
 }
+// add others meeting in ours
+- (void)insertUserMeetingRoomWithID:(RoomItem*)item
+{
+    BOOL find = NO;
+    for (RoomItem *tempItem in dataArray) {
+        if ([tempItem.roomID isEqualToString:item.roomID]) {
+            find = YES;
+            break;
+        }
+    }
+    if (!find) {
+        [ASHUD showHUDWithCompleteStyleInView:self.view content:nil icon:nil];
+        __weak MainViewController *weakSelf = self;
+        [ServerVisit insertUserMeetingRoomWithSign:[ServerVisit shead].authorization meetingID:item.roomID completion:^(AFHTTPRequestOperation *operation, id responseData, NSError *error) {
+            NSDictionary *dict = (NSDictionary*)responseData;
+            [ASHUD hideHUD];
+            if (!error) {
+                if ([[dict objectForKey:@"code"] integerValue] == 200) {
+                    [weakSelf addItemAndEnterMetting:item];
+                }else{
+                    
+                }
+            }else{
+                
+            }
+        }];
+    }
+}
+
+- (void)addItemAndEnterMetting:(RoomItem*)item
+{
+    [dataArray insertObject:item atIndex:0];
+    
+    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    [indexPaths addObject: indexPath];
+    
+    [self.roomList beginUpdates];
+    
+    [self.roomList insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+    
+    [self.roomList endUpdates];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.roomList reloadData];
+        
+        VideoCallViewController *video = [[VideoCallViewController alloc] init];
+        video.roomItem = item;
+        UINavigationController *nai = [[UINavigationController alloc] initWithRootViewController:video];
+        [self presentViewController:nai animated:YES completion:^{
+            
+        }];
+    });
+}
+
+- (void)addItemAndEnterMettingWithID:(NSString*)meeting
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString* number=@"^\\d{12}$";
+        NSPredicate *numberPre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",number];
+        BOOL isTrue = [numberPre evaluateWithObject:meeting];
+        if (isTrue) {
+            __weak MainViewController *weakSelf = self;
+            [ServerVisit  getMeetingInfoWithId:meeting completion:^(AFHTTPRequestOperation *operation, id responseData, NSError *error) {
+                if (!error) {
+                    NSDictionary *dict = (NSDictionary*)responseData;
+                    if ([[dict objectForKey:@"code"] integerValue] == 400) {
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"会议ID不存在" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                        [alertView show];
+                    }else if ([[dict objectForKey:@"code"] integerValue] == 200){
+                        NSDictionary *roomInfo = [dict objectForKey:@"meetingInfo"];
+                        if ([[roomInfo objectForKey:@"meetusable"] integerValue]==2) {
+                            // 私密会议不能添加和进入
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"私密会议不能添加，请联系其主人，让其关闭私密" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                            [alertView show];
+                        }else{
+                            RoomItem *item = [[RoomItem alloc] init];
+                            item.roomID = [roomInfo objectForKey:@"meetingid"];
+                            item.roomName = [roomInfo objectForKey:@"meetname"];
+                            item.createTime = [[roomInfo objectForKey:@"crttime"] longValue];
+                            item.mettingDesc = [roomInfo objectForKey:@"meetdesc"];
+                            item.mettingNum = [[roomInfo objectForKey:@"memnumber"] stringValue];
+                            item.mettingType = [[roomInfo objectForKey:@"meettype1"] integerValue];
+                            item.mettingState = [[roomInfo objectForKey:@"meetusable"] integerValue];
+                            item.userID = [roomInfo objectForKey:@"userid"];
+                            item.canNotification = [[roomInfo objectForKey:@"pushable"] stringValue];
+                            [ToolUtils shead].meetingID = nil;
+                            [weakSelf addItemAndEnterMetting:item];
+                        }
+                    }
+                }else{
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"服务异常" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alertView show];
+                }
+            }];
+        }else{
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"会议ID不合法" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+    });
+}
 
 #pragma mark - UITableViewDelegate UITableViewDataSource
 
@@ -635,21 +768,34 @@ static NSString *kRoomCellID = @"RoomCell";
     return 60;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    dispatch_async(dispatch_get_main_queue(), ^{
         RoomItem *item = [dataArray objectAtIndex:indexPath.row];
         if (item.mettingState == 0) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"该会议暂不可用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alertView show];
             return;
         }
-        VideoCallViewController *video = [[VideoCallViewController alloc] init];
-        video.roomItem = [dataArray objectAtIndex:indexPath.row];
-        UINavigationController *nai = [[UINavigationController alloc] initWithRootViewController:video];
-        [self presentViewController:nai animated:YES completion:^{
-            
+        __weak MainViewController *weakSelf = self;
+        [ServerVisit getMeetingInfoWithId:item.roomID completion:^(AFHTTPRequestOperation *operation, id responseData, NSError *error) {
+            if (!error) {
+                NSDictionary *dict = (NSDictionary*)responseData;
+                if ([[dict objectForKey:@"code"] integerValue] == 400) {
+                    //该会议已经被持有人删除
+                    [ASHUD showHUDWithCompleteStyleInView:self.view content:@"该会议已经被持有人删除" icon:nil];
+                    [weakSelf deleteRoomWithItem:item withIndex:indexPath.row];
+                }else if ([[dict objectForKey:@"code"] integerValue] == 200){
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        VideoCallViewController *video = [[VideoCallViewController alloc] init];
+                        video.roomItem = [dataArray objectAtIndex:indexPath.row];
+                        UINavigationController *nai = [[UINavigationController alloc] initWithRootViewController:video];
+                        [self presentViewController:nai animated:YES completion:^{
+                            
+                        }];
+                    });
+                }
+            }else{
+                [ASHUD showHUDWithCompleteStyleInView:self.view content:@"进入会议出现异常" icon:nil];
+            }
         }];
-    });
- 
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -680,13 +826,17 @@ static NSString *kRoomCellID = @"RoomCell";
         return;
     }
     RoomItem *roomItem = [dataArray objectAtIndex:index];
-    
-   [self.push showWithType:PushViewTypeSetting withObject:roomItem withIndex:index];
+    if ([roomItem.userID isEqualToString:[SvUDIDTools UDID]]) {
+        [self.push showWithType:PushViewTypeSetting withObject:roomItem withIndex:index];
+    }else{
+        [self.push showWithType:PushViewTypeSettingConferee withObject:roomItem withIndex:index];
+    }
+   
 }
 
 #pragma mark - GetRoomViewDelegate
 
-- (void)showCancleButton//显示 button
+- (void)showCancleButton//show button
 {
    self.cancleButton.hidden = NO;
 }
@@ -698,8 +848,8 @@ static NSString *kRoomCellID = @"RoomCell";
 }
 - (void)cancleGetRoom
 {
+    
     [dataArray removeObjectAtIndex:0];
-    // 先把数据添加上，在搞下面的
     
     NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
     
@@ -714,6 +864,7 @@ static NSString *kRoomCellID = @"RoomCell";
     [self.roomList endUpdates];
     
      self.cancleButton.hidden = YES;
+     self.inputButton.hidden = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
          [self.roomList reloadData];
     });
@@ -726,7 +877,7 @@ static NSString *kRoomCellID = @"RoomCell";
     
 }
 
-// 取消更改名字
+// cancle update name
 - (void)cancleRename:(NSString*)oldName
 {
     [self addTempDeleteData:oldName];
@@ -837,7 +988,7 @@ static NSString *kRoomCellID = @"RoomCell";
     
 }
 
-#pragma mark - 监听网络状态
+#pragma mark - monitor the network status
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"_netType"]){
