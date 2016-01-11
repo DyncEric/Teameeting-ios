@@ -27,7 +27,7 @@
 #import "UIView+Category.h"
 #import "AppDelegate.h"
 #import "NtreatedDataManage.h"
-
+#import "TMMessageManage.h"
 
 static NSString *kRoomCellID = @"RoomCell";
 
@@ -281,6 +281,8 @@ static NSString *kRoomCellID = @"RoomCell";
                 if ([[dict objectForKey:@"code"] integerValue] == 200) {
                     [ServerVisit shead].authorization = [dict objectForKey:@"authorization"];
                     [weakSelf getData];
+                    [[TMMessageManage sharedManager] OnMsgServerConnected];
+                    
                 }else{
                     
                 }
@@ -462,7 +464,7 @@ static NSString *kRoomCellID = @"RoomCell";
             if ([[dict objectForKey:@"code"] intValue]== 200) {
                 [weakSelf updataDataWithServerResponse:[dict objectForKey:@"meetingInfo"]];
                  [[NtreatedDataManage sharedManager] removeData:data];
-                
+                 [[TMMessageManage sharedManager] tmRoomCmd:TMCMD_CREATE Userid:nil pass:[ServerVisit shead].authorization roomid:roomItem.roomID remain:@""];
             }
         }
        

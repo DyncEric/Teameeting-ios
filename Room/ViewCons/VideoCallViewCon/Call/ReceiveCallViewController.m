@@ -82,7 +82,8 @@
     [self.videosScrollView setUserInteractionEnabled:YES];
     [self.videosScrollView setContentSize:CGSizeMake(self.view.bounds.size.width*2, 120)];
     [self.videosScrollView setContentOffset:CGPointMake(self.videosScrollView.contentSize.width/4, 0) animated:YES];
-    [self.videosScrollView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin  | UIViewAutoresizingFlexibleWidth ];
+    [self.videosScrollView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin  | UIViewAutoresizingFlexibleWidth];
+    [self.videosScrollView setHidden:YES];
     self.videosScrollView.backgroundColor = [UIColor clearColor];
     _peerSelectedId = nil;
     _isHidden = NO;
