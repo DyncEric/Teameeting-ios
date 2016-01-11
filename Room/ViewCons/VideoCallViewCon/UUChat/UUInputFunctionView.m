@@ -26,7 +26,7 @@
 - (id)initWithSuperVC:(UIViewController *)superVC
 {
     self.superVC = superVC;
-    CGRect frame = CGRectMake(0, superVC.view.bounds.size.height -40, superVC.view.bounds.size.width, 40);
+    CGRect frame = CGRectMake(0, superVC.view.bounds.size.height - 40, superVC.view.bounds.size.width, 40);
     
     self = [super initWithFrame:frame];
     if (self) {
