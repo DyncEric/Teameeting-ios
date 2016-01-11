@@ -141,7 +141,7 @@
     lineImageView.translatesAutoresizingMaskIntoConstraints = NO;
     switchView.translatesAutoresizingMaskIntoConstraints = NO;
     notificationLineImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    // 图标坐标
+    // icon
     NSLayoutConstraint * constraint1 = [NSLayoutConstraint constraintWithItem:iconImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:36.0f];
     
     NSLayoutConstraint * constraint2 = [NSLayoutConstraint constraintWithItem:iconImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:36.0f];
@@ -150,7 +150,7 @@
     
     NSLayoutConstraint * constraint0 = [NSLayoutConstraint constraintWithItem:iconImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
     
-    // 标题坐标
+    // title
     NSLayoutConstraint * constraint3 = [NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:150.0f];
     
     NSLayoutConstraint * constraint4 = [NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:25.0f];
@@ -159,7 +159,7 @@
     
     NSLayoutConstraint * constraint6 = [NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:iconImageView attribute:NSLayoutAttributeRight multiplier:1.0f constant:15.0f];
     
-    // 上线
+    // top line
     NSLayoutConstraint * constraint7 = [NSLayoutConstraint constraintWithItem:lineImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0f constant:15.0f];
     
     NSLayoutConstraint * constraint8 = [NSLayoutConstraint constraintWithItem:lineImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:1.0f];
@@ -184,7 +184,7 @@
     [self addConstraint:constraint10];
     
     if (switchView) {
-        // 选择
+        // switch
         NSLayoutConstraint * constraint11 = [NSLayoutConstraint constraintWithItem:switchView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0f constant:-20.0f];
         
         NSLayoutConstraint * constraint12 = [NSLayoutConstraint constraintWithItem:switchView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0];
@@ -192,7 +192,7 @@
         [self addConstraint:constraint12];
         
         if (switchView.tag ==4 ) {
-            // 关闭选择
+            // close switch image
             NSLayoutConstraint * constraint13 = [NSLayoutConstraint constraintWithItem:notificationLineImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:iconImageView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
             
             NSLayoutConstraint * constraint14 = [NSLayoutConstraint constraintWithItem:notificationLineImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:iconImageView attribute:NSLayoutAttributeHeight multiplier:1.0f constant:0.0f];
@@ -209,13 +209,13 @@
     }
    
 }
-// 设置是否可用
+// setting self enable
 - (void)setViewEnable:(BOOL)isEnable
 {
-    if (isEnable) {// 可用
+    if (isEnable) {// enable
          self.isViewEnable = YES;
         titleLabel.textColor = [UIColor whiteColor];
-    }else{// 不可用
+    }else{// no enable
          self.isViewEnable = NO;
          titleLabel.textColor = [UIColor grayColor];
     }
@@ -238,7 +238,7 @@
                          }];
     }
 }
-// 点击cell
+// tap cell
 - (void)onClickSelectedItemCell:(UITapGestureRecognizer*)tapGestureRecognizer
 {
     if (!self.isViewEnable) {
@@ -250,12 +250,11 @@
                 [switchView setOn:NO animated:YES];
                 [self notificationShow:NO];
             }else{
-                // 先判断能否打开在打开否则回去
                 [self getNOtificationAuthority];
             }
         }
     }else if (viewType == PushViewTypeSetting && indexPath ==7){
-        // 打开私密
+        // open private
         if (switchView) {
             if (switchView.isOn) {
                  [switchView setOn:NO animated:YES];
@@ -280,24 +279,24 @@
 {
     int tag = (int)view.tag;
     if (tag == 4) {
-        // 打开
+        // open
         if (view.isOn) {
             // 先判断能否打开在打开否则回去
             [self getNOtificationAuthority];
-        }else{// 关闭
+        }else{// close
             [self notificationShow:NO];
             if (delegate && [delegate respondsToSelector:@selector(openOrCloseNotification:)]) {
                 [delegate openOrCloseNotification:NO];
             }
         }
     }else{
-        // 打开私密
+        // open private
         if (view.isOn) {
             UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"打开私密会议，您将不能在分享该会议给好友" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             alerView.tag = 491;
             [alerView show];
             
-        }else{// 关闭
+        }else{// close
             if (delegate && [delegate respondsToSelector:@selector(privateMeeting:)]) {
                 [delegate privateMeeting:NO];
             }
@@ -312,7 +311,7 @@
     if ([ToolUtils isAllowedNotification]) {
         [switchView setOn:YES animated:YES];
         [self notificationShow:YES];
-        // 允许推送
+        // can notification
         if (delegate && [delegate respondsToSelector:@selector(openOrCloseNotification:)]) {
             [delegate openOrCloseNotification:YES];
         }
@@ -466,9 +465,9 @@
     
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     lineImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    // 布局
+    // layout
     if (ISIPAD) {
-        // 头标题
+        // title
         NSLayoutConstraint * constraint = [NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.mainScrllView attribute:NSLayoutAttributeTop multiplier:1.0f constant:startY];
         
         NSLayoutConstraint * constraint1 = [NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:IPADCellWidth];
@@ -476,7 +475,7 @@
         NSLayoutConstraint * constraint2 = [NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:30.0f];
         
         NSLayoutConstraint * constraint3 = [NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.mainScrllView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.f];
-        // 线条
+        // line
         NSLayoutConstraint * constraint4 = [NSLayoutConstraint constraintWithItem:lineImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:titleLabel attribute:NSLayoutAttributeBottom multiplier:1.0f constant:20];
         
         NSLayoutConstraint * constraint5 = [NSLayoutConstraint constraintWithItem:lineImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:IPADCellWidth+40];
@@ -495,7 +494,7 @@
         [self.mainScrllView addConstraint:constraint7];
         
     }else{
-        // 头标题
+        // title
         NSLayoutConstraint * constraint = [NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.mainScrllView attribute:NSLayoutAttributeTop multiplier:1.0f constant:startY];
         
         NSLayoutConstraint * constraint1 = [NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:CGRectGetWidth(self.frame)-40];
@@ -503,7 +502,7 @@
         NSLayoutConstraint * constraint2 = [NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:30.0f];
         
         NSLayoutConstraint * constraint3 = [NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.mainScrllView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.f];
-        // 线条(0, CGRectGetMaxY(titleLabel.frame)+ 20, self.frame.size.width, 1)];
+        // line(0, CGRectGetMaxY(titleLabel.frame)+ 20, self.frame.size.width, 1)];
         NSLayoutConstraint * constraint4 = [NSLayoutConstraint constraintWithItem:lineImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:titleLabel attribute:NSLayoutAttributeBottom multiplier:1.0f constant:20];
         
         NSLayoutConstraint * constraint5 = [NSLayoutConstraint constraintWithItem:lineImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:CGRectGetWidth(self.frame)];
@@ -523,7 +522,7 @@
     }
 
     
-    // 把之前的清除掉
+    // remove all old itmes
     for (id itemView in self.mainScrllView.subviews) {
         if ([itemView isKindOfClass:[SelectedItemCell class]]) {
             [itemView removeFromSuperview];
@@ -532,15 +531,12 @@
     startY = CGRectGetMaxY(lineImageView.frame);
     
     if (type == PushViewTypeDefault) {
-        //CGRectMake(CGRectGetMinX(lineImageView.frame), startY,CGRectGetWidth(lineImageView.frame), CellHeight)
         SelectedItemCell *inviteMessage = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"短信邀请" withImageName:@"message_main" withEnableImage:nil withType:PushViewTypeDefault withIndex:0 withItem:roomItem];
         inviteMessage.delegate = self;
         
-        // CGRectMake(CGRectGetMinX(lineImageView.frame), CGRectGetMaxY(inviteMessage.frame), CGRectGetWidth(lineImageView.frame), CellHeight)
          SelectedItemCell *inviteMail = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"微信邀请" withImageName:@"mail_main" withEnableImage:nil withType:PushViewTypeDefault withIndex:1 withItem:roomItem];
         inviteMail.delegate = self;
         
-        //CGRectMake(CGRectGetMinX(lineImageView.frame), CGRectGetMaxY(inviteMessage.frame), CGRectGetWidth(lineImageView.frame), CellHeight)
          SelectedItemCell *inviteLink = [[SelectedItemCell alloc] initWithFrame:CGRectZero withTitle:@"拷贝链接" withImageName:@"link_main" withEnableImage:nil withType:PushViewTypeDefault withIndex:2 withItem:roomItem];
         inviteLink.delegate = self;
         
@@ -897,7 +893,7 @@
         } completion:^(BOOL finished) {
             self.lastPushViewType = PushViewTypeNone;
             self.hidden = YES;
-            // 还原
+            // restore
             [self.mainScrllView setContentOffset:CGPointMake(0, 0) animated:NO];
 
         }];
@@ -925,7 +921,7 @@
             } completion:^(BOOL finished) {
                 self.lastPushViewType = PushViewTypeNone;
                 self.hidden = YES;
-                // 还原
+                // restore
                 [self.mainScrllView setContentOffset:CGPointMake(0, 0) animated:NO];
             }];
 

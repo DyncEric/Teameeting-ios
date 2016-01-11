@@ -20,7 +20,7 @@
 @property (nonatomic, weak)id<RoomViewCellDelegate>delegate;
 
 @property (nonatomic, strong) NSIndexPath *parIndexPath;
-// 设置内容
+// set item 
 - (void)setItem:(RoomItem*)item;
 
 @end

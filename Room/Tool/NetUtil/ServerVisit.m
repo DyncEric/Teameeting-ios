@@ -169,4 +169,10 @@ static ServerVisit *_server = nil;
     [NetRequestUtils requestWithInterfaceStrWithHeader:@"users/signout" withRequestType:PostType parameters:parameters completion:completion];
 }
 
++ (void)getMeetingInfoWithId:(NSString*)meetingID
+                  completion:(void (^)(AFHTTPRequestOperation *operation ,id responseData,NSError *error))completion
+{
+    NSString *meeting = [NSString stringWithFormat:@"meeting/getMeetingInfo/%@",meetingID];
+    [NetRequestUtils requestWithInterfaceStr:meeting withRequestType:GetType parameters:nil completion:completion];
+}
 @end

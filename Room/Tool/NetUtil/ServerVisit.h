@@ -134,4 +134,6 @@
 + (void)signoutRoomWithSign:(NSString *)gn
                  completion:(void (^)(AFHTTPRequestOperation *operation ,id responseData,NSError *error))completion;
 
++ (void)getMeetingInfoWithId:(NSString*)meetingID
+                  completion:(void (^)(AFHTTPRequestOperation *operation ,id responseData,NSError *error))completion;
 @end

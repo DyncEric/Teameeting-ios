@@ -10,6 +10,11 @@
 
 @interface ToolUtils : NSObject
 
++(ToolUtils*)shead;
+
+@property (nonatomic, strong) NSString *meetingID;
+
+// 是否允许推送
 + (BOOL)isAllowedNotification;
 
 @end

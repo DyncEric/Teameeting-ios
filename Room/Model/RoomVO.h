@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSString *userID;             // 会议创建者
 @property (nonatomic, strong) NSString *canNotification;    // 是否可以推送
 @property (nonatomic, assign) long jointime;                // 开会时间
+@property (nonatomic, assign) long createTime;              // 创建时间
 @property (nonatomic, strong) NSString *mettingNum;         // 入会人员
 @property (nonatomic, assign) NSInteger mettingType;        // 会议类型
 @property (nonatomic, strong) NSString *mettingDesc;        // 会议描述

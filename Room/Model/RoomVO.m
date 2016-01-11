@@ -20,6 +20,7 @@
         self.canNotification = [self canPush];
         self.mettingState = 0;
         self.jointime = [[TimeManager shead] timeTransformationTimestamp];
+        self.createTime = [[TimeManager shead] timeTransformationTimestamp];
     }
     return self;
 }
@@ -30,6 +31,7 @@
             self.roomName = [params valueForKey:@"meetname"];
             self.canNotification = [[params valueForKey:@"pushable"] stringValue];
             self.jointime = [[params valueForKey:@"jointime"] longValue];
+            self.createTime = [[params valueForKey:@"createtime"] longValue];
             self.mettingDesc = [params valueForKey:@"meetdesc"];
             self.mettingNum = [[params valueForKey:@"memnumber"] stringValue];
             self.mettingType = [[params valueForKey:@"meettype"] integerValue];
@@ -58,6 +60,7 @@
     [aCoder encodeObject:self.userID forKey:@"userID"];
     [aCoder encodeObject:self.canNotification forKey:@"canNotification"];
     [aCoder encodeInt:self.jointime forKey:@"jointime"];
+    [aCoder encodeInt:self.createTime forKey:@"createtime"];
     [aCoder encodeObject:self.mettingNum forKey:@"mettingNum"];
     [aCoder encodeInteger:self.mettingType forKey:@"mettingType"];
     [aCoder encodeObject:self.mettingDesc forKey:@"mettingDesc"];
@@ -75,6 +78,7 @@
         _userID = [aDecoder decodeObjectForKey:@"userID"];
         _canNotification = [aDecoder decodeObjectForKey:@"canNotification"];
         _jointime = [aDecoder decodeIntForKey:@"jointime"];
+        _createTime = [aDecoder decodeIntForKey:@"createtime"];
         _mettingNum = [aDecoder decodeObjectForKey:@"mettingNum"];
         _mettingType = [aDecoder decodeIntegerForKey:@"mettingType"];
         _mettingDesc = [aDecoder decodeObjectForKey:@"mettingDesc"];

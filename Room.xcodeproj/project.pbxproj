@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		780115111C327D3C0015CA63 /* NavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 780115101C327D3C0015CA63 /* NavView.m */; };
+		78023C891C3E2DC80089EACA /* EmptyViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 78023C841C3E2DC80089EACA /* EmptyViewFactory.m */; };
+		78023C8A1C3E2DC80089EACA /* FOREmptyAssistantConfiger.m in Sources */ = {isa = PBXBuildFile; fileRef = 78023C861C3E2DC80089EACA /* FOREmptyAssistantConfiger.m */; };
+		78023C8B1C3E2DC80089EACA /* FORScrollViewEmptyAssistant.m in Sources */ = {isa = PBXBuildFile; fileRef = 78023C881C3E2DC80089EACA /* FORScrollViewEmptyAssistant.m */; };
+		78023C8E1C3E30500089EACA /* no_room@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78023C8C1C3E30500089EACA /* no_room@2x.png */; };
+		78023C8F1C3E30500089EACA /* no_room@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78023C8D1C3E30500089EACA /* no_room@3x.png */; };
+		78023C931C3E3D7E0089EACA /* EnterMeetingIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78023C921C3E3D7E0089EACA /* EnterMeetingIDViewController.m */; };
+		78023C981C3E3F550089EACA /* close_enter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78023C941C3E3F550089EACA /* close_enter@2x.png */; };
+		78023C991C3E3F550089EACA /* close_enter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78023C951C3E3F550089EACA /* close_enter@3x.png */; };
+		78023C9A1C3E3F550089EACA /* enter_go@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78023C961C3E3F550089EACA /* enter_go@2x.png */; };
 		78024F961C0E96DF00435DC7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 78024F951C0E96DF00435DC7 /* main.m */; };
 		78024F9F1C0E96DF00435DC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78024F9D1C0E96DF00435DC7 /* Main.storyboard */; };
 		78024FA11C0E96DF00435DC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78024FA01C0E96DF00435DC7 /* Assets.xcassets */; };
@@ -102,6 +111,9 @@
 		7806326F1C18329A00A8D186 /* FackNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7806326E1C18329A00A8D186 /* FackNavView.m */; };
 		7808DF121C1126550039173B /* ASNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 7808DF0F1C1126550039173B /* ASNetwork.m */; };
 		7808DF131C1126550039173B /* NetRequestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7808DF111C1126550039173B /* NetRequestUtils.m */; };
+		780FC0431C4390D100C7C9C0 /* UIImage+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 780FC0421C4390D100C7C9C0 /* UIImage+Category.m */; };
+		7813F1961C3FB7E20024ECAF /* bg_addMeeting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7813F1951C3FB7E20024ECAF /* bg_addMeeting@2x.png */; };
+		7813F1981C3FBBD90024ECAF /* enter_go@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7813F1971C3FBBD90024ECAF /* enter_go@3x.png */; };
 		781D8CE41C1956E000835FEC /* TimeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 781D8CE31C1956E000835FEC /* TimeManager.m */; };
 		781D8CEB1C19707B00835FEC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781D8CEA1C19707B00835FEC /* CoreTelephony.framework */; };
 		782914301C155F0D00F6BBF9 /* SvUDIDTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7829142F1C155F0D00F6BBF9 /* SvUDIDTools.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -200,6 +212,19 @@
 		780114AD1C3233FD0015CA63 /* Room-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Room-Prefix.pch"; sourceTree = "<group>"; };
 		7801150F1C327D3C0015CA63 /* NavView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavView.h; sourceTree = "<group>"; };
 		780115101C327D3C0015CA63 /* NavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavView.m; sourceTree = "<group>"; };
+		78023C831C3E2DC80089EACA /* EmptyViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyViewFactory.h; sourceTree = "<group>"; };
+		78023C841C3E2DC80089EACA /* EmptyViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyViewFactory.m; sourceTree = "<group>"; };
+		78023C851C3E2DC80089EACA /* FOREmptyAssistantConfiger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FOREmptyAssistantConfiger.h; sourceTree = "<group>"; };
+		78023C861C3E2DC80089EACA /* FOREmptyAssistantConfiger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FOREmptyAssistantConfiger.m; sourceTree = "<group>"; };
+		78023C871C3E2DC80089EACA /* FORScrollViewEmptyAssistant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FORScrollViewEmptyAssistant.h; sourceTree = "<group>"; };
+		78023C881C3E2DC80089EACA /* FORScrollViewEmptyAssistant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FORScrollViewEmptyAssistant.m; sourceTree = "<group>"; };
+		78023C8C1C3E30500089EACA /* no_room@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_room@2x.png"; sourceTree = "<group>"; };
+		78023C8D1C3E30500089EACA /* no_room@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_room@3x.png"; sourceTree = "<group>"; };
+		78023C911C3E3D7E0089EACA /* EnterMeetingIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterMeetingIDViewController.h; sourceTree = "<group>"; };
+		78023C921C3E3D7E0089EACA /* EnterMeetingIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterMeetingIDViewController.m; sourceTree = "<group>"; };
+		78023C941C3E3F550089EACA /* close_enter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_enter@2x.png"; sourceTree = "<group>"; };
+		78023C951C3E3F550089EACA /* close_enter@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_enter@3x.png"; sourceTree = "<group>"; };
+		78023C961C3E3F550089EACA /* enter_go@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enter_go@2x.png"; sourceTree = "<group>"; };
 		78024F911C0E96DF00435DC7 /* Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Room.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78024F951C0E96DF00435DC7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		78024F9E1C0E96DF00435DC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -335,6 +360,10 @@
 		7808DF0F1C1126550039173B /* ASNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASNetwork.m; sourceTree = "<group>"; };
 		7808DF101C1126550039173B /* NetRequestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetRequestUtils.h; sourceTree = "<group>"; };
 		7808DF111C1126550039173B /* NetRequestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetRequestUtils.m; sourceTree = "<group>"; };
+		780FC0411C4390D100C7C9C0 /* UIImage+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Category.h"; sourceTree = "<group>"; };
+		780FC0421C4390D100C7C9C0 /* UIImage+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Category.m"; sourceTree = "<group>"; };
+		7813F1951C3FB7E20024ECAF /* bg_addMeeting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_addMeeting@2x.png"; sourceTree = "<group>"; };
+		7813F1971C3FBBD90024ECAF /* enter_go@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enter_go@3x.png"; sourceTree = "<group>"; };
 		781D8CE21C1956E000835FEC /* TimeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeManager.h; sourceTree = "<group>"; };
 		781D8CE31C1956E000835FEC /* TimeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeManager.m; sourceTree = "<group>"; };
 		781D8CEA1C19707B00835FEC /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -507,6 +536,29 @@
 			path = NavView;
 			sourceTree = "<group>";
 		};
+		78023C821C3E2DA40089EACA /* EmptyAssistant */ = {
+			isa = PBXGroup;
+			children = (
+				78023C831C3E2DC80089EACA /* EmptyViewFactory.h */,
+				78023C841C3E2DC80089EACA /* EmptyViewFactory.m */,
+				78023C851C3E2DC80089EACA /* FOREmptyAssistantConfiger.h */,
+				78023C861C3E2DC80089EACA /* FOREmptyAssistantConfiger.m */,
+				78023C871C3E2DC80089EACA /* FORScrollViewEmptyAssistant.h */,
+				78023C881C3E2DC80089EACA /* FORScrollViewEmptyAssistant.m */,
+			);
+			path = EmptyAssistant;
+			sourceTree = "<group>";
+		};
+		78023C901C3E3D390089EACA /* DirectEntMeetingController */ = {
+			isa = PBXGroup;
+			children = (
+				78023C911C3E3D7E0089EACA /* EnterMeetingIDViewController.h */,
+				78023C921C3E3D7E0089EACA /* EnterMeetingIDViewController.m */,
+			);
+			name = DirectEntMeetingController;
+			path = InputViewController;
+			sourceTree = "<group>";
+		};
 		78024F881C0E96DF00435DC7 = {
 			isa = PBXGroup;
 			children = (
@@ -580,6 +632,7 @@
 		78024FC71C0E98A200435DC7 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				78023C821C3E2DA40089EACA /* EmptyAssistant */,
 				FCB6025B1C2B822E00469FA2 /* RtcMesg */,
 				FC592AF01C2928D20055EDCC /* WeChat */,
 				781D8CE11C1956CC00835FEC /* TimeManager */,
@@ -612,6 +665,8 @@
 		78024FD11C0E98A200435DC7 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				780FC0411C4390D100C7C9C0 /* UIImage+Category.h */,
+				780FC0421C4390D100C7C9C0 /* UIImage+Category.m */,
 				78F98DE11C3388190005832A /* UIView+Category.h */,
 				78F98DE21C3388190005832A /* UIView+Category.m */,
 				78FC362B1C100A43001BEDD7 /* NSDate+Utils.h */,
@@ -647,6 +702,7 @@
 		78024FE71C0E998F00435DC7 /* ViewCons */ = {
 			isa = PBXGroup;
 			children = (
+				78023C901C3E3D390089EACA /* DirectEntMeetingController */,
 				78024FE81C0E998F00435DC7 /* MainViewController.h */,
 				78024FE91C0E998F00435DC7 /* MainViewController.m */,
 				78024FEA1C0E998F00435DC7 /* ParViewController */,
@@ -833,6 +889,13 @@
 		7802508C1C0E9F2200435DC7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7813F1971C3FBBD90024ECAF /* enter_go@3x.png */,
+				7813F1951C3FB7E20024ECAF /* bg_addMeeting@2x.png */,
+				78023C941C3E3F550089EACA /* close_enter@2x.png */,
+				78023C951C3E3F550089EACA /* close_enter@3x.png */,
+				78023C961C3E3F550089EACA /* enter_go@2x.png */,
+				78023C8C1C3E30500089EACA /* no_room@2x.png */,
+				78023C8D1C3E30500089EACA /* no_room@3x.png */,
 				78FFEF3E1C34FE220076DF49 /* Default-568h@2x.png */,
 				78FFEF3F1C34FE220076DF49 /* Default-667h@2x.png */,
 				78FFEF401C34FE220076DF49 /* Default-736h@3x.png */,
@@ -1276,6 +1339,7 @@
 				78FFEF4C1C34FE220076DF49 /* Default-Portrait@2x~ipad.png in Resources */,
 				780250D01C0E9F2200435DC7 /* share@3x.png in Resources */,
 				780250C61C0E9F2200435DC7 /* mic@3x.png in Resources */,
+				7813F1981C3FBBD90024ECAF /* enter_go@3x.png in Resources */,
 				78FC36201C0FF265001BEDD7 /* enter_main@3x.png in Resources */,
 				780250B71C0E9F2200435DC7 /* hangup@2x.png in Resources */,
 				780250C21C0E9F2200435DC7 /* menucancel@3x.png in Resources */,
@@ -1300,6 +1364,7 @@
 				780250501C0E998F00435DC7 /* chat_ipunt_message.png in Resources */,
 				78FFEF4D1C34FE220076DF49 /* Default-Portrait~ipad.png.png in Resources */,
 				78FC36291C0FF265001BEDD7 /* rename_main@2x.png in Resources */,
+				78023C981C3E3F550089EACA /* close_enter@2x.png in Resources */,
 				780250C31C0E9F2200435DC7 /* messageInvite@2x.png in Resources */,
 				FC9B3D831C3DF77B00C86F89 /* PushConfig.plist in Resources */,
 				780250591C0E998F00435DC7 /* 0.jpeg in Resources */,
@@ -1312,8 +1377,10 @@
 				780250531C0E998F00435DC7 /* chat_send_message.png in Resources */,
 				FCC440751C18186600B52B95 /* changeSelectVideo@3x.png in Resources */,
 				78FFEF481C34FE220076DF49 /* Default-667h@2x.png in Resources */,
+				78023C9A1C3E3F550089EACA /* enter_go@2x.png in Resources */,
 				780250D41C0E9F2200435DC7 /* videoBackgroud.png in Resources */,
 				78F154251C33CAB00034E8C9 /* no_net_alert@2x.png in Resources */,
+				7813F1961C3FB7E20024ECAF /* bg_addMeeting@2x.png in Resources */,
 				780250571C0E998F00435DC7 /* chatfrom_doctor_icon.png in Resources */,
 				780250BA1C0E9F2200435DC7 /* hangupselect@3x.png in Resources */,
 				780250B41C0E9F2200435DC7 /* chat@2x.png in Resources */,
@@ -1322,6 +1389,9 @@
 				7802504E1C0E998F00435DC7 /* chat_animation_white2.png in Resources */,
 				780250B61C0E9F2200435DC7 /* closeVideo@2x.png in Resources */,
 				780250C71C0E9F2200435DC7 /* micselect@2x.png in Resources */,
+				78023C8F1C3E30500089EACA /* no_room@3x.png in Resources */,
+				78023C8E1C3E30500089EACA /* no_room@2x.png in Resources */,
+				78023C991C3E3F550089EACA /* close_enter@3x.png in Resources */,
 				78FC36251C0FF265001BEDD7 /* message_main@2x.png in Resources */,
 				780250551C0E998F00435DC7 /* chat_voice_record.png in Resources */,
 				78F154261C33CAB00034E8C9 /* no_net_alert@3x.png in Resources */,
@@ -1420,8 +1490,10 @@
 				780250731C0E99C900435DC7 /* PushView.m in Sources */,
 				7802505D1C0E998F00435DC7 /* UUImageAvatarBrowser.m in Sources */,
 				7802505C1C0E998F00435DC7 /* UUAVAudioPlayer.m in Sources */,
+				78023C8A1C3E2DC80089EACA /* FOREmptyAssistantConfiger.m in Sources */,
 				781D8CE41C1956E000835FEC /* TimeManager.m in Sources */,
 				7808DF121C1126550039173B /* ASNetwork.m in Sources */,
+				78023C931C3E3D7E0089EACA /* EnterMeetingIDViewController.m in Sources */,
 				780115111C327D3C0015CA63 /* NavView.m in Sources */,
 				78024F961C0E96DF00435DC7 /* main.m in Sources */,
 				78F154291C33CF6B0034E8C9 /* MemberView.m in Sources */,
@@ -1434,11 +1506,13 @@
 				78024FE61C0E98F200435DC7 /* UIDevice+Category.m in Sources */,
 				FCDED12D1C1685B600BA2A68 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				FCB6026F1C2BC6FA00469FA2 /* WXApiResponseHandler.m in Sources */,
+				780FC0431C4390D100C7C9C0 /* UIImage+Category.m in Sources */,
 				FCDED1371C16AACC00BA2A68 /* MLEmojiLabel.m in Sources */,
 				780250441C0E998F00435DC7 /* ReceiveCallViewController.m in Sources */,
 				FC3C69EE1C239A9500053A75 /* NtreatedDataManage.m in Sources */,
 				FCB602701C2BC6FA00469FA2 /* GetMessageFromWXResp+responseWithTextOrMediaMessage.m in Sources */,
 				7802503D1C0E998F00435DC7 /* MainViewController.m in Sources */,
+				78023C8B1C3E2DC80089EACA /* FORScrollViewEmptyAssistant.m in Sources */,
 				780250781C0E99E400435DC7 /* RoomVO.m in Sources */,
 				780250671C0E998F00435DC7 /* VideoCallViewController.m in Sources */,
 				780250621C0E998F00435DC7 /* UUMessageFrame.m in Sources */,
@@ -1450,6 +1524,7 @@
 				78024FE11C0E98A200435DC7 /* ErrorUtil.m in Sources */,
 				FCDED1311C1685B600BA2A68 /* EmojiEmoticons.m in Sources */,
 				780250611C0E998F00435DC7 /* UUMessageContentButton.m in Sources */,
+				78023C891C3E2DC80089EACA /* EmptyViewFactory.m in Sources */,
 				7802505E1C0E998F00435DC7 /* UUInputFunctionView.m in Sources */,
 				78FFEF541C3503330076DF49 /* AppDelegate.m in Sources */,
 				78FC36391C100B4D001BEDD7 /* LockerView.m in Sources */,
@@ -1628,6 +1703,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dync.teameeting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1639,7 +1715,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = KeychainAccessGroups.plist;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Boyuan Electronic Technology Co. Ltd (5543CP4MRT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yangyang wang (3VG6DLPKJ2)";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Room-Prefix.pch";
@@ -1655,6 +1731,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dync.teameeting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -15,6 +15,7 @@
 #import "WXApiManager.h"
 #import "RoomApp.h"
 #import "APService.h"
+#import "ToolUtils.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -105,7 +106,7 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
     // 解析url
-    if ([[url scheme] isEqualToString:@"iosvideometting"]){
+    if ([[url scheme] isEqualToString:@"teameeting"]){
         NSString* encodedString = [NSString stringWithFormat:@"%@",url];
         [self getUrlParamer:encodedString withFirstIn:NO];
         
@@ -115,32 +116,19 @@
 
 - (void)getUrlParamer:(NSString*)URL withFirstIn:(BOOL)isFirst
 {
-    NSRange rangeleft = [URL rangeOfString:@"?"];
+    NSRange rangeleft = [URL rangeOfString:@"//"];
     if (rangeleft.length <= 0 || rangeleft.location+1>URL.length) {
         return;
     }
-    NSString *rightUrl = [URL substringFromIndex:rangeleft.location+1];
-    NSArray *leftPar = [rightUrl componentsSeparatedByString:@"&"];
-    if (leftPar.count==0) {
-        return;
-    }
-    NSString *meetingStr = [leftPar objectAtIndex:0];
-    NSArray *meetingArr = [meetingStr componentsSeparatedByString:@"="];
-    if (meetingArr.count ==0) {
-        return;
-    }
-    NSLog(@"meetingName:%@",[meetingArr objectAtIndex:1]);
-    
-    
-    
+    NSString *mID = [URL substringFromIndex:rangeleft.location+rangeleft.length];
+    NSLog(@"meetingName:%@",mID);
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
     if (isFirst) {
         // 用户还没有启动一种处理
-//        [LoginUtil shead].dictShear = dict;
+        [ToolUtils shead].meetingID = mID;
     }else{
-        
-//        [[NSNotificationCenter defaultCenter] postNotificationName:DreceivedDeviceCallNotification object:nil userInfo:dict];
+        [[NSNotificationCenter defaultCenter] postNotificationName:ShareMettingNotification object:mID userInfo:nil];
     }
 }
 

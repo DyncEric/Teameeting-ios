@@ -75,22 +75,5 @@
     }
 }
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-//- (void)drawRect:(CGRect)rect {
-//    //1.获取图形上下文
-//    CGContextRef ctx=UIGraphicsGetCurrentContext();
-//    //2.绘图（画线）
-//    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 1, 1, 1, 1);
-//    
-//    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), CGRectGetHeight(self.frame));  //线宽
-//    //设置起点
-//    CGContextMoveToPoint(ctx, 0, self.bounds.size.height);
-//    //设置终点
-//    CGContextAddLineToPoint(ctx, self.bounds.size.width, self.bounds.size.height);
-//    //渲染
-//    CGContextStrokePath(ctx);
-//}
-
 
 @end

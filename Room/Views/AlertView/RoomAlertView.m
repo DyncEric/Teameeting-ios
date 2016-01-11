@@ -8,8 +8,6 @@
 
 #import "RoomAlertView.h"
 
-#define IsiPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) // 判断设备是不是iPad
-
 @interface RoomAlertView()
 {
     UIActivityIndicatorView *activityIndicatorView;
@@ -26,7 +24,7 @@
         self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
         self.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.4];
         if (type == AlertViewNotNetType) {
-            if (IsiPad) {
+            if (ISIPAD) {
                 self.alertView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)];
             }else{
                   self.alertView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) - 80, CGRectGetHeight([UIScreen mainScreen].bounds)/2)];
