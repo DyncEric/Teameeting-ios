@@ -23,7 +23,6 @@
 		7802503D1C0E998F00435DC7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78024FE91C0E998F00435DC7 /* MainViewController.m */; };
 		7802503E1C0E998F00435DC7 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78024FEC1C0E998F00435DC7 /* BaseViewController.m */; };
 		780250441C0E998F00435DC7 /* ReceiveCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78024FFD1C0E998F00435DC7 /* ReceiveCallViewController.m */; };
-		780250481C0E998F00435DC7 /* libJniceSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 780250071C0E998F00435DC7 /* libJniceSDK.a */; };
 		7802504A1C0E998F00435DC7 /* chat_animation1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7802500F1C0E998F00435DC7 /* chat_animation1.png */; };
 		7802504B1C0E998F00435DC7 /* chat_animation2.png in Resources */ = {isa = PBXBuildFile; fileRef = 780250101C0E998F00435DC7 /* chat_animation2.png */; };
 		7802504C1C0E998F00435DC7 /* chat_animation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 780250111C0E998F00435DC7 /* chat_animation3.png */; };
@@ -147,6 +146,7 @@
 		78FFEF541C3503330076DF49 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FFEF521C3503330076DF49 /* AppDelegate.m */; };
 		78FFEF571C35035D0076DF49 /* RoomApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FFEF561C35035D0076DF49 /* RoomApp.m */; };
 		A69BBC80EC1AA108834FA3A1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0148C48B67C96355DB42472F /* libPods.a */; };
+		B54F655D1C438DCA009CB715 /* libanrtcsdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B54F655B1C438DCA009CB715 /* libanrtcsdk.a */; };
 		FC1597E21C293525009F8FB4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1597E11C293525009F8FB4 /* SystemConfiguration.framework */; };
 		FC1597E41C293550009F8FB4 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1597E31C293550009F8FB4 /* libsqlite3.0.tbd */; };
 		FC3C69EB1C23994500053A75 /* NtreatedData.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3C69EA1C23994500053A75 /* NtreatedData.m */; };
@@ -232,8 +232,6 @@
 		78024FEC1C0E998F00435DC7 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		78024FFC1C0E998F00435DC7 /* ReceiveCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiveCallViewController.h; sourceTree = "<group>"; };
 		78024FFD1C0E998F00435DC7 /* ReceiveCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiveCallViewController.m; sourceTree = "<group>"; };
-		780250061C0E998F00435DC7 /* DyncM2MClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DyncM2MClient.h; sourceTree = "<group>"; };
-		780250071C0E998F00435DC7 /* libJniceSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libJniceSDK.a; sourceTree = "<group>"; };
 		780250091C0E998F00435DC7 /* ACMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMacros.h; sourceTree = "<group>"; };
 		7802500F1C0E998F00435DC7 /* chat_animation1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation1.png; sourceTree = "<group>"; };
 		780250101C0E998F00435DC7 /* chat_animation2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation2.png; sourceTree = "<group>"; };
@@ -390,6 +388,10 @@
 		78FFEF551C35035D0076DF49 /* RoomApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomApp.h; sourceTree = "<group>"; };
 		78FFEF561C35035D0076DF49 /* RoomApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomApp.m; sourceTree = "<group>"; };
 		7F145D8E4025C731234D6485 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B54F65591C438DCA009CB715 /* AnyrtcM2Mutlier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnyrtcM2Mutlier.h; sourceTree = "<group>"; };
+		B54F655A1C438DCA009CB715 /* AnyrtcVideoCallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnyrtcVideoCallView.h; sourceTree = "<group>"; };
+		B54F655B1C438DCA009CB715 /* libanrtcsdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libanrtcsdk.a; sourceTree = "<group>"; };
+		B54F655C1C438DCA009CB715 /* M2MPublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M2MPublisher.h; sourceTree = "<group>"; };
 		E434AAD9ACF282EAAD2803A5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		FC1597E11C293525009F8FB4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FC1597E31C293550009F8FB4 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -458,6 +460,7 @@
 				FC1597E41C293550009F8FB4 /* libsqlite3.0.tbd in Frameworks */,
 				FC1597E21C293525009F8FB4 /* SystemConfiguration.framework in Frameworks */,
 				781D8CEB1C19707B00835FEC /* CoreTelephony.framework in Frameworks */,
+				B54F655D1C438DCA009CB715 /* libanrtcsdk.a in Frameworks */,
 				7802508B1C0E9E5800435DC7 /* VideoToolbox.framework in Frameworks */,
 				780250891C0E9E4E00435DC7 /* GLKit.framework in Frameworks */,
 				780250871C0E9E2C00435DC7 /* libz.tbd in Frameworks */,
@@ -466,7 +469,6 @@
 				780250851C0E9E2500435DC7 /* libstdc++.tbd in Frameworks */,
 				780250831C0E9E1E00435DC7 /* libstdc++.6.0.9.tbd in Frameworks */,
 				7802507F1C0E9E0D00435DC7 /* libicucore.tbd in Frameworks */,
-				780250481C0E998F00435DC7 /* libJniceSDK.a in Frameworks */,
 				FC9B3D791C3D165700C86F89 /* libPushSDK-1.8.8.a in Frameworks */,
 				A69BBC80EC1AA108834FA3A1 /* libPods.a in Frameworks */,
 			);
@@ -667,9 +669,9 @@
 		78024FED1C0E998F00435DC7 /* VideoCallViewCon */ = {
 			isa = PBXGroup;
 			children = (
+				B54F65571C438DCA009CB715 /* AnyrtcSDK */,
 				FCDED1111C167DD300BA2A68 /* MessageTip */,
 				78024FEE1C0E998F00435DC7 /* Call */,
-				780250051C0E998F00435DC7 /* JniceSDK */,
 				780250081C0E998F00435DC7 /* OtherResources */,
 				780250241C0E998F00435DC7 /* UUChat */,
 				780250351C0E998F00435DC7 /* UUChatTableView */,
@@ -686,15 +688,6 @@
 				78024FFD1C0E998F00435DC7 /* ReceiveCallViewController.m */,
 			);
 			path = Call;
-			sourceTree = "<group>";
-		};
-		780250051C0E998F00435DC7 /* JniceSDK */ = {
-			isa = PBXGroup;
-			children = (
-				780250061C0E998F00435DC7 /* DyncM2MClient.h */,
-				780250071C0E998F00435DC7 /* libJniceSDK.a */,
-			);
-			path = JniceSDK;
 			sourceTree = "<group>";
 		};
 		780250081C0E998F00435DC7 /* OtherResources */ = {
@@ -1026,6 +1019,17 @@
 				0148C48B67C96355DB42472F /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B54F65571C438DCA009CB715 /* AnyrtcSDK */ = {
+			isa = PBXGroup;
+			children = (
+				B54F65591C438DCA009CB715 /* AnyrtcM2Mutlier.h */,
+				B54F655A1C438DCA009CB715 /* AnyrtcVideoCallView.h */,
+				B54F655B1C438DCA009CB715 /* libanrtcsdk.a */,
+				B54F655C1C438DCA009CB715 /* M2MPublisher.h */,
+			);
+			path = AnyrtcSDK;
 			sourceTree = "<group>";
 		};
 		FC592AF01C2928D20055EDCC /* WeChat */ = {
@@ -1617,6 +1621,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Room-Prefix.pch";
 				INFOPLIST_FILE = Room/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1625,9 +1630,11 @@
 					"$(PROJECT_DIR)/Room/Tool/WeChat",
 					"$(PROJECT_DIR)/Room/Tool/AtcMesg",
 					"$(PROJECT_DIR)/Room/Tool/RtcMesg",
+					"$(PROJECT_DIR)/Room/ViewCons/VideoCallViewCon/AnyrtcSDK",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dync.teameeting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1639,11 +1646,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = KeychainAccessGroups.plist;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Boyuan Electronic Technology Co. Ltd (5543CP4MRT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yangyang wang (3VG6DLPKJ2)";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Room-Prefix.pch";
 				INFOPLIST_FILE = Room/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1652,9 +1660,11 @@
 					"$(PROJECT_DIR)/Room/Tool/WeChat",
 					"$(PROJECT_DIR)/Room/Tool/AtcMesg",
 					"$(PROJECT_DIR)/Room/Tool/RtcMesg",
+					"$(PROJECT_DIR)/Room/ViewCons/VideoCallViewCon/AnyrtcSDK",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dync.teameeting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

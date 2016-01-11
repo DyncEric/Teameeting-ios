@@ -7,15 +7,15 @@
 //
 
 #import "ReceiveCallViewController.h"
-#import "DyncM2MClient.h"
+#import "AnyrtcM2Mutlier.h"
 #import "AvcAudioRouteMgr.h"
 #import <AVFoundation/AVFoundation.h>
 #import "ASHUD.h"
 
-@interface ReceiveCallViewController ()<DyncM2MClientDelegate,UIGestureRecognizerDelegate>
+@interface ReceiveCallViewController ()<AnyrtcM2MDelegate,UIGestureRecognizerDelegate>
 {
     AvcAudioRouteMgr *_audioManager;
-    UIView *_localVideoView;
+    AnyrtcVideoCallView *_localVideoView;
     
     CGSize _localVideoSize;
     CGSize _videoSize;
@@ -40,7 +40,7 @@
 @property (nonatomic, strong) NSMutableArray *_userArray;
 @property (nonatomic, strong) NSMutableArray *_channelArray;
 
-@property(nonatomic, strong) DyncM2MClient *_client;
+@property(nonatomic, strong) AnyrtcM2Mutlier *_client;
 @property(nonatomic, strong) UIScrollView *videosScrollView;
 
 @end
@@ -91,22 +91,31 @@
     
     _dicRemoteVideoView = [[NSMutableDictionary alloc] initWithCapacity:5];
     
-    _client = [[DyncM2MClient alloc] initWithDelegate:self];
-    _localVideoView =_client.localView;
+    [AnyrtcM2Mutlier InitAnyRTC:@"mzw0001" andToken:@"defq34hj92mxxjhaxxgjfdqi1s332dd" andAESKey:@"d74TcmQDMB5nWx9zfJ5al7JdEg3XwySwCkhdB9lvnd1" andAppId:@"org.dync.app"];
+    _client = [[AnyrtcM2Mutlier alloc] init];
+    _localVideoView = [[AnyrtcVideoCallView alloc] initWithFrame:self.view.frame];
+    _client.delegate = self;
+    _client.videoCallView = _localVideoView;
     
     UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(locolvideoSingleTap:)];
     singleTapGestureRecognizer.delegate = self;
     [singleTapGestureRecognizer setNumberOfTapsRequired:1];
     [_localVideoView addGestureRecognizer:singleTapGestureRecognizer];
     [self.view addSubview:_localVideoView];
-    
-    [_client signInWithRoomId:roomID withIsPresenter:NO];
+
     [ASHUD showHUDWithStayLoadingStyleInView:self.view belowView:nil content:@"接听中。。。"];
     [self.view addSubview:self.videosScrollView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullSreenNoti:) name:@"FULLSCREEN" object:nil];
 
+    {//@Eric - Publish myself
+        PublishParams *pramas = [[PublishParams alloc]init];
+        [pramas setEnableVideo:true];
+        [pramas setEnableRecord:false];
+        [pramas setStreamType:kSTRtc];
+        [_client Publish:pramas];
+    }
 }
 
 - (void)fullSreenNoti:(NSNotification *)noti {
@@ -158,13 +167,13 @@
 - (void)switchCamera // switch camera
 {
     if (_client) {
-        [_client switchCamear];
+        [_client switchCamera];
     }
 }
 - (void)hangeUp      // hunge up
 {
     if (_client) {
-        [_client signOut];
+        [_client CloseAll];
     }
     return;
     _exitRoomAlertView = [[UIAlertView alloc] initWithTitle:nil message:@"你确定要退出吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -492,127 +501,59 @@
     }else if (_exitRoomAlertView == alertView){
         if (buttonIndex == 1) {
             [ASHUD showHUDWithStayLoadingStyleInView:self.view belowView:nil content:@"正在退出。。。"];
-            [_client signOut];
+            [_client CloseAll];
         }
     }
     
 }
 
-#pragma mark - DyncM2MClientDelegate
-// 有人进入房间
-- (void)appClient:(DyncM2MClient *)client didMemberInRoom:(NSString *)userID withNickName:(NSString *)nickName
+#pragma mark - AnyrtcM2MDelegate
+/** 发布成功
+ * @param strPublishId	实时流的ID
+ * @param strRtmpUrl	rtmp直播流的地址
+ * @param strHlsUrl		hls直播流的地址
+ */
+- (void) OnRtcPublishOK:(NSString*)strPublishId withRtmpUrl:(NSString*)strRtmpUtl withHlsUrl:(NSString*)strHlsUrl
 {
-    [_userArray addObject:userID];
+    [ASHUD hideHUD];
+    [_client Subscribe:strPublishId andEnableVideo:YES];
 }
-// 有人离开房间
-- (void)appClient:(DyncM2MClient *)client didMemberLeaveRoom:(NSString *)userID
+/** 发布失败
+ * @param nCode		失败的代码
+ * @param strErr	错误的具体原因
+ */
+- (void) OnRtcPublishFailed:(int)code withErr:(NSString*)strErr
 {
-    //做一下判断如果会议中没人了，则推出
-    [_userArray removeObject:userID];
-    if ([_userArray count]==0) {
-        // 对方挂断
-        [ASHUD showHUDWithCompleteStyleInView:self.view content:@"对方挂断" icon:nil];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [_client signOut];
-        });
-    }
-}
-
-- (void)appClient:(DyncM2MClient *)client didReceiveRemoteVideoView:(UIView *)remoteVideoView withTag:(NSString *)strTag
-{
-    [self setRemoteVideoView:remoteVideoView withTag:strTag];
-    if (!_audioManager._isSpeakerOn) {
-        [_audioManager setSpeakerOn];
-    }
-}
-- (void)appClient:(DyncM2MClient *)client didReceiveRemoteVideoViewLeaveWithTag:(NSString *)strTag
-{
-    // 有人离开（更新界面）
-    [self setRemoveVideoView:strTag];
-}
-
-
-- (void)appClientInRoomScuess:(DyncM2MClient *)client withRoomId:(NSString*)roomID
-{
-    // 进入房间后更新界面
     
-    [ASHUD hideHUD];
-    [self layoutSubView];
+}
+/** 发布通道关闭
+ */
+- (void) OnRtcPublishClosed
+{
+    
 }
 
-- (void)appClientInRoomFaile:(DyncM2MClient *)client
+/** 订阅成功
+ * @param strPublishId	订阅的通道ID
+ */
+- (void) OnRtcSubscribeOK:(NSString*)strPublishId
 {
-    // 进入房间失败
-    [ASHUD hideHUD];
-    [ASHUD showHUDWithCompleteStyleInView:self.view content:@"初始化失败" icon:nil];
+    
 }
-
-- (void)appClientPublishScuess:(DyncM2MClient *)client
+/** 订阅失败
+ * @param strPublishId	订阅的通道ID
+ * @param nCode			失败的代码
+ * @param strErr		错误的具体原因
+ */
+- (void) OnRtcSubscribeFailed:(NSString*)strPublishId withCode:(int)code withErr:(NSString*)strErr
 {
-    // 进入房间后更新界面
-    [self layoutSubView];
 }
-
-- (void)appClient:(DyncM2MClient *)client didReceiveLeaveRoomwithInfo:(NSString*)info
+/** 订阅通道关闭
+ * @param strPublishId	订阅的通道ID
+ */
+- (void) OnRtcSubscribeClosed:(NSString*)strPublishId
 {
-    // 自己退出房间
-    [ASHUD hideHUD];
-
-}
-
-- (void)appClient:(DyncM2MClient *)client onRoomAudioStatus:(NSString*)peerId isEnable:(BOOL)enable
-{
-    // 关闭或者打开音频
-    [ASHUD hideHUD];
-    if (enable) {
-        [ASHUD showHUDWithCompleteStyleInView:self.view content:@"对方开启了音频" icon:nil];
-    }else{
-        [ASHUD showHUDWithCompleteStyleInView:self.view content:@"对方关闭了音频" icon:nil];
-    }
-}
-
-- (void)appClient:(DyncM2MClient *)client onRoomVideoStatus:(NSString*)peerId isEnable:(BOOL)enable
-{
-    // 关闭或者打开视频
-    [ASHUD hideHUD];
-    if (enable) {
-        [ASHUD showHUDWithCompleteStyleInView:self.view content:@"对方开启了视频" icon:nil];
-    }else{
-        [ASHUD showHUDWithCompleteStyleInView:self.view content:@"对方关闭了视频" icon:nil];
-    }
-}
-- (void)appClient:(DyncM2MClient *)client OnChannelOpen:(NSString *)userID
-{
-    if (![_channelArray containsObject:userID]) {
-        [_channelArray addObject:userID];
-      
-    }
-}
-
-- (void)appClient:(DyncM2MClient *)client OnChannelClose:(NSString *)userID
-{
-    if ([_channelArray containsObject:userID]) {
-        [_channelArray removeObject:userID];
-    }
-}
-- (void)appClient:(DyncM2MClient *)client didReceiveBytes:(int)bytes
-{
-
-}
-- (void)appClient:(DyncM2MClient *)client
-didReceiveMessage:(NSString*)data withUser:(NSString*)userID
-{
-
-}
-
-- (void)appClient:(DyncM2MClient *)client videoView:(UIView *)videoView didChangeVideoSize:(CGSize)size
-{
-    if (videoView == _localVideoView) {
-        _localVideoSize = size;
-    }else{
-        _videoSize = size;
-    }
-    [self layoutSubView];
+    
 }
 
 
