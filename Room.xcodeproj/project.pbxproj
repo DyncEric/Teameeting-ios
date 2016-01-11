@@ -163,14 +163,20 @@
 		FC1597E41C293550009F8FB4 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1597E31C293550009F8FB4 /* libsqlite3.0.tbd */; };
 		FC3C69EB1C23994500053A75 /* NtreatedData.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3C69EA1C23994500053A75 /* NtreatedData.m */; };
 		FC3C69EE1C239A9500053A75 /* NtreatedDataManage.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3C69ED1C239A9500053A75 /* NtreatedDataManage.m */; };
+		FC4C0C001C3F97D800A00196 /* libSdkMsgClientTmIos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4C0BFF1C3F97D800A00196 /* libSdkMsgClientTmIos.a */; };
 		FC592AF51C2928D20055EDCC /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC592AF11C2928D20055EDCC /* libWeChatSDK.a */; };
-		FC9B3D741C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B3D711C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a */; };
 		FC9B3D751C3CEB8700C86F89 /* TMMessageManage.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9B3D731C3CEB8700C86F89 /* TMMessageManage.m */; };
 		FC9B3D791C3D165700C86F89 /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B3D781C3D165700C86F89 /* libPushSDK-1.8.8.a */; };
 		FC9B3D7B1C3D1CE700C86F89 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B3D7A1C3D1CE700C86F89 /* CFNetwork.framework */; };
 		FC9B3D7D1C3D1D1100C86F89 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B3D7C1C3D1D1100C86F89 /* CoreGraphics.framework */; };
 		FC9B3D7F1C3D1D2500C86F89 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B3D7E1C3D1D2500C86F89 /* Security.framework */; };
 		FC9B3D831C3DF77B00C86F89 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC9B3D821C3DF77B00C86F89 /* PushConfig.plist */; };
+		FC9B3D851C3E049100C86F89 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B3D841C3E049100C86F89 /* CoreData.framework */; };
+		FC9B3D881C3E0EBB00C86F89 /* TMessage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FC9B3D861C3E0EBB00C86F89 /* TMessage.xcdatamodeld */; };
+		FC9B3D8D1C3E326800C86F89 /* Message+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9B3D8A1C3E326800C86F89 /* Message+CoreDataProperties.m */; };
+		FC9B3D8E1C3E326800C86F89 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9B3D8C1C3E326800C86F89 /* Message.m */; };
+		FC9B3D931C3E382100C86F89 /* Rooms+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9B3D901C3E382100C86F89 /* Rooms+CoreDataProperties.m */; };
+		FC9B3D941C3E382100C86F89 /* Rooms.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9B3D921C3E382100C86F89 /* Rooms.m */; };
 		FCB6026D1C2BC6FA00469FA2 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB602601C2BC6FA00469FA2 /* WXApiManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FCB6026E1C2BC6FA00469FA2 /* WXApiRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB602621C2BC6FA00469FA2 /* WXApiRequestHandler.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FCB6026F1C2BC6FA00469FA2 /* WXApiResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB602641C2BC6FA00469FA2 /* WXApiResponseHandler.m */; };
@@ -426,6 +432,7 @@
 		FC3C69EA1C23994500053A75 /* NtreatedData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NtreatedData.m; sourceTree = "<group>"; };
 		FC3C69EC1C239A9500053A75 /* NtreatedDataManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NtreatedDataManage.h; sourceTree = "<group>"; };
 		FC3C69ED1C239A9500053A75 /* NtreatedDataManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NtreatedDataManage.m; sourceTree = "<group>"; };
+		FC4C0BFF1C3F97D800A00196 /* libSdkMsgClientTmIos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSdkMsgClientTmIos.a; sourceTree = "<group>"; };
 		FC592AF11C2928D20055EDCC /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		FC592AF21C2928D20055EDCC /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		FC592AF31C2928D20055EDCC /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
@@ -433,7 +440,6 @@
 		FC9B3D6E1C3CEB8700C86F89 /* MsgClientProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgClientProtocol.h; sourceTree = "<group>"; };
 		FC9B3D6F1C3CEB8700C86F89 /* TMClientType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMClientType.h; sourceTree = "<group>"; };
 		FC9B3D701C3CEB8700C86F89 /* TMMsgSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMsgSender.h; sourceTree = "<group>"; };
-		FC9B3D711C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "librtcmsgclient-tm-ios.a"; sourceTree = "<group>"; };
 		FC9B3D721C3CEB8700C86F89 /* TMMessageManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMessageManage.h; sourceTree = "<group>"; };
 		FC9B3D731C3CEB8700C86F89 /* TMMessageManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMessageManage.m; sourceTree = "<group>"; };
 		FC9B3D771C3D165700C86F89 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
@@ -442,6 +448,16 @@
 		FC9B3D7C1C3D1D1100C86F89 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		FC9B3D7E1C3D1D2500C86F89 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FC9B3D821C3DF77B00C86F89 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
+		FC9B3D841C3E049100C86F89 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FC9B3D871C3E0EBB00C86F89 /* TMessage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMessage.xcdatamodel; sourceTree = "<group>"; };
+		FC9B3D891C3E326800C86F89 /* Message+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Message+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FC9B3D8A1C3E326800C86F89 /* Message+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Message+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FC9B3D8B1C3E326800C86F89 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		FC9B3D8C1C3E326800C86F89 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		FC9B3D8F1C3E382100C86F89 /* Rooms+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Rooms+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FC9B3D901C3E382100C86F89 /* Rooms+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Rooms+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FC9B3D911C3E382100C86F89 /* Rooms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rooms.h; sourceTree = "<group>"; };
+		FC9B3D921C3E382100C86F89 /* Rooms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rooms.m; sourceTree = "<group>"; };
 		FCB6025F1C2BC6FA00469FA2 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
 		FCB602601C2BC6FA00469FA2 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		FCB602611C2BC6FA00469FA2 /* WXApiRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiRequestHandler.h; sourceTree = "<group>"; };
@@ -480,6 +496,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC9B3D851C3E049100C86F89 /* CoreData.framework in Frameworks */,
 				FC9B3D7F1C3D1D2500C86F89 /* Security.framework in Frameworks */,
 				FC9B3D7D1C3D1D1100C86F89 /* CoreGraphics.framework in Frameworks */,
 				FC9B3D7B1C3D1CE700C86F89 /* CFNetwork.framework in Frameworks */,
@@ -487,10 +504,10 @@
 				FC1597E41C293550009F8FB4 /* libsqlite3.0.tbd in Frameworks */,
 				FC1597E21C293525009F8FB4 /* SystemConfiguration.framework in Frameworks */,
 				781D8CEB1C19707B00835FEC /* CoreTelephony.framework in Frameworks */,
+				FC4C0C001C3F97D800A00196 /* libSdkMsgClientTmIos.a in Frameworks */,
 				7802508B1C0E9E5800435DC7 /* VideoToolbox.framework in Frameworks */,
 				780250891C0E9E4E00435DC7 /* GLKit.framework in Frameworks */,
 				780250871C0E9E2C00435DC7 /* libz.tbd in Frameworks */,
-				FC9B3D741C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a in Frameworks */,
 				FC592AF51C2928D20055EDCC /* libWeChatSDK.a in Frameworks */,
 				780250851C0E9E2500435DC7 /* libstdc++.tbd in Frameworks */,
 				780250831C0E9E1E00435DC7 /* libstdc++.6.0.9.tbd in Frameworks */,
@@ -562,6 +579,7 @@
 		78024F881C0E96DF00435DC7 = {
 			isa = PBXGroup;
 			children = (
+				FC9B3D861C3E0EBB00C86F89 /* TMessage.xcdatamodeld */,
 				FC9B3D821C3DF77B00C86F89 /* PushConfig.plist */,
 				780114AD1C3233FD0015CA63 /* Room-Prefix.pch */,
 				78024F931C0E96DF00435DC7 /* Room */,
@@ -1072,6 +1090,7 @@
 		A792500469739FC2B404CD56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FC9B3D841C3E049100C86F89 /* CoreData.framework */,
 				FC9B3D7E1C3D1D2500C86F89 /* Security.framework */,
 				FC9B3D7C1C3D1D1100C86F89 /* CoreGraphics.framework */,
 				FC9B3D7A1C3D1CE700C86F89 /* CFNetwork.framework */,
@@ -1127,10 +1146,18 @@
 		FCB6025B1C2B822E00469FA2 /* RtcMesg */ = {
 			isa = PBXGroup;
 			children = (
+				FC4C0BFF1C3F97D800A00196 /* libSdkMsgClientTmIos.a */,
 				FC9B3D6D1C3CEB8700C86F89 /* include */,
-				FC9B3D711C3CEB8700C86F89 /* librtcmsgclient-tm-ios.a */,
 				FC9B3D721C3CEB8700C86F89 /* TMMessageManage.h */,
 				FC9B3D731C3CEB8700C86F89 /* TMMessageManage.m */,
+				FC9B3D891C3E326800C86F89 /* Message+CoreDataProperties.h */,
+				FC9B3D8A1C3E326800C86F89 /* Message+CoreDataProperties.m */,
+				FC9B3D8B1C3E326800C86F89 /* Message.h */,
+				FC9B3D8C1C3E326800C86F89 /* Message.m */,
+				FC9B3D8F1C3E382100C86F89 /* Rooms+CoreDataProperties.h */,
+				FC9B3D901C3E382100C86F89 /* Rooms+CoreDataProperties.m */,
+				FC9B3D911C3E382100C86F89 /* Rooms.h */,
+				FC9B3D921C3E382100C86F89 /* Rooms.m */,
 			);
 			path = RtcMesg;
 			sourceTree = "<group>";
@@ -1277,6 +1304,7 @@
 				TargetAttributes = {
 					78024F901C0E96DF00435DC7 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = EM2HUYWNJ6;
 					};
 					78024FA91C0E96DF00435DC7 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -1495,9 +1523,12 @@
 				7808DF121C1126550039173B /* ASNetwork.m in Sources */,
 				78023C931C3E3D7E0089EACA /* EnterMeetingIDViewController.m in Sources */,
 				780115111C327D3C0015CA63 /* NavView.m in Sources */,
+				FC9B3D931C3E382100C86F89 /* Rooms+CoreDataProperties.m in Sources */,
 				78024F961C0E96DF00435DC7 /* main.m in Sources */,
+				FC9B3D941C3E382100C86F89 /* Rooms.m in Sources */,
 				78F154291C33CF6B0034E8C9 /* MemberView.m in Sources */,
 				78FC36351C100AF8001BEDD7 /* Mp3Recorder.m in Sources */,
+				FC9B3D881C3E0EBB00C86F89 /* TMessage.xcdatamodeld in Sources */,
 				780250741C0E99C900435DC7 /* RoomViewCell.m in Sources */,
 				7806326B1C18320300A8D186 /* UINavigationBar+Category.m in Sources */,
 				FCDED11D1C167E0B00BA2A68 /* TalkView.m in Sources */,
@@ -1526,6 +1557,7 @@
 				780250611C0E998F00435DC7 /* UUMessageContentButton.m in Sources */,
 				78023C891C3E2DC80089EACA /* EmptyViewFactory.m in Sources */,
 				7802505E1C0E998F00435DC7 /* UUInputFunctionView.m in Sources */,
+				FC9B3D8D1C3E326800C86F89 /* Message+CoreDataProperties.m in Sources */,
 				78FFEF541C3503330076DF49 /* AppDelegate.m in Sources */,
 				78FC36391C100B4D001BEDD7 /* LockerView.m in Sources */,
 				7808DF131C1126550039173B /* NetRequestUtils.m in Sources */,
@@ -1535,6 +1567,7 @@
 				780250601C0E998F00435DC7 /* UUMessageCell.m in Sources */,
 				78FC362D1C100A43001BEDD7 /* NSDate+Utils.m in Sources */,
 				782914301C155F0D00F6BBF9 /* SvUDIDTools.m in Sources */,
+				FC9B3D8E1C3E326800C86F89 /* Message.m in Sources */,
 				78024FE31C0E98A200435DC7 /* ToolUtils.m in Sources */,
 				FC9B3D751C3CEB8700C86F89 /* TMMessageManage.m in Sources */,
 				780250631C0E998F00435DC7 /* UUProgressHUD.m in Sources */,
@@ -1691,7 +1724,20 @@
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Room-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/DXPopover\"",
+					"\"${PODS_ROOT}/Headers/Public/LBBlurredImage\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/TTTAttributedLabel\"",
+					"\"${PODS_ROOT}/Headers/Public/mp3lame-for-ios\"",
+					"$(PROJECT_DIR)/Tool/RtcMesg/include",
+				);
 				INFOPLIST_FILE = Room/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1700,6 +1746,35 @@
 					"$(PROJECT_DIR)/Room/Tool/WeChat",
 					"$(PROJECT_DIR)/Room/Tool/AtcMesg",
 					"$(PROJECT_DIR)/Room/Tool/RtcMesg",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"DXPopover\"",
+					"-l\"LBBlurredImage\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MJRefresh\"",
+					"-l\"TTTAttributedLabel\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"lame\"",
+					"-w",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dync.teameeting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1719,7 +1794,20 @@
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Room-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/DXPopover\"",
+					"\"${PODS_ROOT}/Headers/Public/LBBlurredImage\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/TTTAttributedLabel\"",
+					"\"${PODS_ROOT}/Headers/Public/mp3lame-for-ios\"",
+					"$(PROJECT_DIR)/Tool/RtcMesg/include",
+				);
 				INFOPLIST_FILE = Room/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1728,6 +1816,35 @@
 					"$(PROJECT_DIR)/Room/Tool/WeChat",
 					"$(PROJECT_DIR)/Room/Tool/AtcMesg",
 					"$(PROJECT_DIR)/Room/Tool/RtcMesg",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"DXPopover\"",
+					"-l\"LBBlurredImage\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MJRefresh\"",
+					"-l\"TTTAttributedLabel\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"lame\"",
+					"-w",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dync.teameeting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1824,6 +1941,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FC9B3D861C3E0EBB00C86F89 /* TMessage.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FC9B3D871C3E0EBB00C86F89 /* TMessage.xcdatamodel */,
+			);
+			currentVersion = FC9B3D871C3E0EBB00C86F89 /* TMessage.xcdatamodel */;
+			path = TMessage.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 78024F891C0E96DF00435DC7 /* Project object */;
 }

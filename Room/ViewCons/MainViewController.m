@@ -25,9 +25,12 @@
 #import "UIView+Category.h"
 #import "AppDelegate.h"
 #import "NtreatedDataManage.h"
+
 #import "EmptyViewFactory.h"
 #import "EnterMeetingIDViewController.h"
 #import "UIImage+Category.h"
+#import "TMMessageManage.h"
+
 static NSString *kRoomCellID = @"RoomCell";
 
 #define IPADLISTWIDTH 320
@@ -297,6 +300,8 @@ static NSString *kRoomCellID = @"RoomCell";
                 if ([[dict objectForKey:@"code"] integerValue] == 200) {
                     [ServerVisit shead].authorization = [dict objectForKey:@"authorization"];
                     [weakSelf getData];
+                    [[TMMessageManage sharedManager] OnMsgServerConnected];
+                    
                 }else{
                     
                 }
@@ -490,6 +495,7 @@ static NSString *kRoomCellID = @"RoomCell";
                 [weakSelf updataDataWithServerResponse:[dict objectForKey:@"meetingInfo"]];
                  [[NtreatedDataManage sharedManager] removeData:data];
                 [weakSelf.push showWithType:PushViewTypeDefault withObject:roomItem withIndex:0];
+                [[TMMessageManage sharedManager] tmRoomCmd:TMCMD_CREATE Userid:nil pass:[ServerVisit shead].authorization roomid:roomItem.roomID remain:@""];
             }
         }
        

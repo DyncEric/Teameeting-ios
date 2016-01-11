@@ -13,7 +13,7 @@
 #import "ChatModel.h"
 #import "UUMessageFrame.h"
 #import "UUMessage.h"
-
+#import "TMMessageManage.h"
 @interface RootViewController ()<UUInputFunctionViewDelegate,UUMessageCellDelegate,UITableViewDataSource,UITableViewDelegate>
 
 //@property (strong, nonatomic) MJRefreshHeader *head;
@@ -21,16 +21,20 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
-
+@property (assign,nonatomic) BOOL isViewLoad;
 @end
 
 @implementation RootViewController{
     UUInputFunctionView *IFView;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+
+- (void)viewWillAppear:(BOOL)animated {
     
+    [super viewWillAppear:animated];
+    if (self.isViewLoad)
+        return;
+    self.isViewLoad = YES;
     [self addRefreshViews];
     [self loadBaseViewsAndData];
     self.view.backgroundColor = [UIColor clearColor];
@@ -39,6 +43,11 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChange:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChange:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tableViewScrollToBottom) name:UIKeyboardDidShowNotification object:nil];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -154,7 +163,7 @@
         NSIndexPath *path = [self.chatTableView  indexPathForCell:cell];
         [indexPaths addObject:path];
     }
-    [self.chatTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    [self.chatTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
 }
 
 -(void)keyboardChange:(NSNotification *)notification
@@ -181,59 +190,24 @@
     //adjust ChatTableView's height
     if (notification.name == UIKeyboardWillShowNotification) {
         
-        if ([[[UIDevice currentDevice]systemVersion]floatValue] < 8.0) {
-            
-            if (isVertical) {
-                
-                self.bottomConstraint.constant = keyboardEndFrame.size.height+40;
-                
-            } else {
-                
-                self.bottomConstraint.constant = keyboardEndFrame.size.width+40;
-            }
-            
-        } else {
+        float keyBordHeight = keyboardEndFrame.size.width > keyboardEndFrame.size.height ? keyboardEndFrame.size.height : keyboardEndFrame.size.width;
+        [IFView setFrame:CGRectMake(0, parenetView.view.bounds.size.height - keyBordHeight - 40, IFView.bounds.size.width, IFView.bounds.size.height)];
+        [self.bottomConstraint setConstant:keyBordHeight + 40];
+        [self.view layoutIfNeeded];
         
-            self.bottomConstraint.constant = keyboardEndFrame.size.height+40;
-        }
+    } else if (notification.name == UIKeyboardWillHideNotification){
         
-    }else{
-        self.bottomConstraint.constant = 40;
+        [IFView setFrame:CGRectMake(0, parenetView.view.bounds.size.height - 40, IFView.bounds.size.width, IFView.bounds.size.height)];
+        [self.view layoutIfNeeded];
+        [self.bottomConstraint setConstant:40];
     }
-    
-    [self.view layoutIfNeeded];
-
-    //adjust UUInputFunctionView's originPoint
-    CGRect newFrame = IFView.frame;
-    if ([[[UIDevice currentDevice]systemVersion]floatValue] < 8.0 && !isVertical) {
-        
-        if (notification.name == UIKeyboardWillHideNotification) {
-            
-            newFrame.origin.y = newFrame.origin.y + keyboardEndFrame.size.width;
-            
-        } else {
-            
-            newFrame.origin.y = newFrame.origin.y -  keyboardEndFrame.size.width;
-        }
-        
-        
-    } else if ([[[UIDevice currentDevice]systemVersion]floatValue] < 8.0 && isVertical) {
-    
-        newFrame.origin.y = keyboardEndFrame.origin.y - newFrame.size.height;
-    
-    } else {
-        
-        newFrame.origin.y = keyboardEndFrame.origin.y - newFrame.size.height;
-    }
-    IFView.frame = newFrame;
-    
     [UIView commitAnimations];
-    
 }
 
 //tableView Scroll to bottom
 - (void)tableViewScrollToBottom
 {
+    
     if (self.chatModel.dataSource.count==0)
         return;
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.chatModel.dataSource.count-1 inSection:0];
@@ -249,6 +223,7 @@
     funcView.TextViewInput.text = @"";
     [funcView changeSendBtnWithPhoto:YES];
     [self dealTheFunctionData:dic];
+    [[TMMessageManage sharedManager] sendMsgUserid:nil pass:nil roomid:@"123" msg:message];
 }
 
 - (void)UUInputFunctionView:(UUInputFunctionView *)funcView sendPicture:(UIImage *)image
@@ -270,7 +245,7 @@
 {
     [self.chatModel addSpecifiedItem:dic];
     [self.chatTableView reloadData];
-    [self performSelector:@selector(tableViewScrollToBottom) withObject:nil afterDelay:0.1];
+    [self performSelector:@selector(tableViewScrollToBottom) withObject:nil afterDelay:1];
 }
 
 #pragma mark - tableView delegate & datasource

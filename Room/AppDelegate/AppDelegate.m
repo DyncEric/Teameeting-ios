@@ -17,6 +17,8 @@
 #import "APService.h"
 #import "ToolUtils.h"
 
+#import "TMMessageManage.h"
+
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
 @end
@@ -32,6 +34,7 @@
     [[UINavigationBar appearance] setBarTintColor: [UIColor blackColor]];
     
     [ASNetwork sharedNetwork];
+    [[TMMessageManage sharedManager] inintTMMessage];
     [RoomApp shead].appDelgate = self;
     // Override point for customization after application launch.
     if (launchOptions) {

@@ -45,6 +45,11 @@
                      msg:(NSString*) msg
                    ulist:(NSArray*) ulist;
 
+- (int) tMNotifyMsgUserid:(NSString*) userid
+                  pass:(NSString*) pass
+                roomid:(NSString*) roomid
+                   msg:(NSString*) msg;
+
 @end
 
 #endif
