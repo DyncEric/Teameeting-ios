@@ -460,13 +460,27 @@ typedef enum ViewState {
     
     UIView *shareView = [[UIView alloc] init];
     shareView.backgroundColor = [UIColor colorWithRed:205.f/255.f green:205.f/255.f blue:203.f/255.f alpha:1];
-    if (!isVertical) {
+    if (ISIPAD) {
         
-        shareView.frame = CGRectMake(0, 0, self.view.bounds.size.width - 30, self.view.bounds.size.height - 66);
-        
+        if (isVertical) {
+            
+            shareView.frame = CGRectMake(0, 0, 300, 400);
+        } else {
+            
+            shareView.frame = CGRectMake(0, 0, 400, 300);
+        }
+    
     } else {
         
-        shareView.frame = CGRectMake(0, 0, self.view.bounds.size.width - 30, 400);
+        if (!isVertical) {
+            
+            shareView.frame = CGRectMake(0, 0, self.view.bounds.size.width - 30, self.view.bounds.size.height - 66);
+            
+        } else {
+            
+            shareView.frame = CGRectMake(0, 0, self.view.bounds.size.width - 30, 400);
+        }
+        
     }
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = 8;
@@ -526,6 +540,15 @@ typedef enum ViewState {
     [shareView addSubview:descriptionTitle];
     
     UILabel *linkTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, shareView.bounds.size.width - (isVertical ? 60 : 120), 56)];
+    if (ISIPAD) {
+        
+        [linkTitle setFrame:CGRectMake(0, 0, shareView.bounds.size.width - (isVertical ? 60 : 80), 56)];
+        
+    } else {
+        
+        [linkTitle setFrame:CGRectMake(0, 0, shareView.bounds.size.width - (isVertical ? 60 : 120), 56)];
+    }
+    
     [linkTitle setFont:[UIFont systemFontOfSize:12]];
     linkTitle.text = [NSString stringWithFormat:@"http://192.168.7.62/demo/rtpmp/rtpmp.html#%@",self.roomItem.roomID];
     [linkTitle setTextColor:[UIColor grayColor]];
@@ -580,18 +603,32 @@ typedef enum ViewState {
     }
     _shareViewGround = [[UIView alloc] initWithFrame:self.view.bounds];
     _shareViewGround.userInteractionEnabled = YES;
-    _shareViewGround.tag = 500;
-    _shareViewGround.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _shareViewGround.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_shareViewGround];
-    if (!isVertical) {
+    
+    if (ISIPAD) {
         
-        [self.popver showAtPoint:CGPointMake(self.view.bounds.size.width - 25, 32) popoverPostion:DXPopoverPositionDown withContentView:shareView inView:_shareViewGround];
+        if (!isVertical) {
+            
+            [self.popver showAtPoint:CGPointMake(self.view.bounds.size.width - 25, 65) popoverPostion:DXPopoverPositionDown withContentView:shareView inView:_shareViewGround];
+            
+        } else {
+            
+            [self.popver showAtPoint:CGPointMake(self.view.bounds.size.width - 25, 65) popoverPostion:DXPopoverPositionDown withContentView:shareView inView:_shareViewGround];
+            
+        }
         
     } else {
         
-        [self.popver showAtPoint:CGPointMake(self.view.bounds.size.width - 25, 65) popoverPostion:DXPopoverPositionDown withContentView:shareView inView:_shareViewGround];
-        
+        if (!isVertical) {
+            
+            [self.popver showAtPoint:CGPointMake(self.view.bounds.size.width - 25, 32) popoverPostion:DXPopoverPositionDown withContentView:shareView inView:_shareViewGround];
+            
+        } else {
+            
+            [self.popver showAtPoint:CGPointMake(self.view.bounds.size.width - 25, 65) popoverPostion:DXPopoverPositionDown withContentView:shareView inView:_shareViewGround];
+            
+        }
     }
 }
 
